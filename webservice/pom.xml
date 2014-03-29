@@ -45,7 +45,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>TimeTableWebService</finalName>
+		<finalName>TimeTableGeneratorWebService</finalName>
 	</build>
 
 
