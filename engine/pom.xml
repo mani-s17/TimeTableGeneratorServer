@@ -11,5 +11,7 @@
 	</parent>
 
 	<artifactId>timetablegenerator-server-engine</artifactId>
+	<name>Timetable Generator Server Engine</name>
+	<description>Module contains algorithm for computing TimeTable</description>
 
 </project>
