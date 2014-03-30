@@ -1,12 +1,12 @@
-package com.timetable.server.webservice.model.output;
+package com.timetable.server.engine.model.output;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Subramaniam S
- * Date: 3/29/2014
- * Time: 11:01 PM
+ * Date: 3/30/2014
+ * Time: 8:15 AM
  */
-public class TimeTable
+public class TimeTableOutput
 {
 	private String teacherId;
 	private String[] classes;

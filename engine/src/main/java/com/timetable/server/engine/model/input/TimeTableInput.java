@@ -1,4 +1,4 @@
-package com.timetable.input;
+package com.timetable.server.engine.model.input;
 
 /**
  * TimeTableInput represents the total information required to generate the weekly timetable.

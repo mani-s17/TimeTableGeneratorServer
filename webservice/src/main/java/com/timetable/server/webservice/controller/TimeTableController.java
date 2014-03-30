@@ -1,6 +1,6 @@
 package com.timetable.server.webservice.controller;
 
-import com.timetable.server.webservice.model.output.TimeTable;
+import com.timetable.server.engine.model.output.TimeTableOutput;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +19,9 @@ public class TimeTableController
 {
 	@RequestMapping(value = "{name}", method = RequestMethod.GET)
 	public @ResponseBody
-	TimeTable generateTimeTable(@PathVariable String name)
+	TimeTableOutput generateTimeTable(@PathVariable String name)
 	{
-		TimeTable timeTable = new TimeTable();
+		TimeTableOutput timeTable = new TimeTableOutput();
 		timeTable.setTeacherId(name);
 		timeTable.setClasses(new String[] {"7a", "7b"});
 		return timeTable;

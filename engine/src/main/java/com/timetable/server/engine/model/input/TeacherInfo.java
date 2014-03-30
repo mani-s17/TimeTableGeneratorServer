@@ -1,4 +1,4 @@
-package com.timetable.server.webservice.model.input;
+package com.timetable.server.engine.model.input;
 
 /**
  * TeacherInfo contains all the information of a teacher required for timetable scheduling.

@@ -15,6 +15,12 @@
 	<packaging>war</packaging>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.timetablegenerator</groupId>
+			<artifactId>timetablegenerator-server-engine</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- Spring dependencies -->
 		<dependency>

@@ -1,4 +1,4 @@
-package com.timetable.server.webservice.model.input;
+package com.timetable.server.engine.model.input;
 
 /**
  * A class group is a combination of students (of a standard) who study a set of common subjects.

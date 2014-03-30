@@ -1,4 +1,4 @@
-package com.timetable.server.webservice.model.input;
+package com.timetable.server.engine.model.input;
 
 /**
  * A teacher can teach a subject to a particular standard. This class represents this combination.
