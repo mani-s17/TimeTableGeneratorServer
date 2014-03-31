@@ -9,6 +9,8 @@ public class SubjectStandard {
 
 	private String standard;
 
+	private int weeklySubjectHours;
+
 	public String getSubject() {
 		return subject;
 	}
@@ -23,5 +25,15 @@ public class SubjectStandard {
 
 	public void setStandard(String standard) {
 		this.standard = standard;
+	}
+
+	public int getWeeklySubjectHours()
+	{
+		return weeklySubjectHours;
+	}
+
+	public void setWeeklySubjectHours(int weeklySubjectHours)
+	{
+		this.weeklySubjectHours = weeklySubjectHours;
 	}
 }
