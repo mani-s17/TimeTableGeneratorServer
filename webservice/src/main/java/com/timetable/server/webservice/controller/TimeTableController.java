@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TimeTableController
 {
 	@RequestMapping(method = RequestMethod.POST, headers = "content-type=application/json")
-	public @ResponseBody TimeTableOutput generateTimeTablePost(@RequestBody TimeTableInput name)
+	public @ResponseBody TimeTableOutput generateTimeTable(@RequestBody TimeTableInput name)
 	{
 		TimeTableOutput timeTable = new TimeTableOutput();
 		timeTable.setTeacherId("mani");
