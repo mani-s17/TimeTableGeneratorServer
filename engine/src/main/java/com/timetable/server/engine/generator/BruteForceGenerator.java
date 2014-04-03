@@ -12,6 +12,27 @@ public class BruteForceGenerator implements TimeTableGenerator {
 
 	@Override
 	public SampleOutput generateTimeTable(TimeTableInput timeTableInput) {
+
+		/*
+		  Outline of the steps this algorithm should do.
+		  Basically a brute force algorithm, which involves deep recursion.
+
+		  assignRecursive(classX, dayX, periodX, STATE) {
+		  	for (subject_teacher : subj_teachers) {
+		  		if (!checkIfValid(STATE, ....)) // check all the constraints in here...MAYBE use the DomainStore here.
+		  			return;
+		  		updateState(STATE, ...)
+
+		  		if (doneWithThisClass(STATE)) {
+		  			assignRecursive(nextClass, dayInit, periodInit, STATE);
+		  		}
+		  		else {
+		  			(dayNext, periodNext) --> get the next day and period.
+		  			assignRecursive(classX, dayNext, periodNext, STATE);
+		  		}
+		  	}
+		  }
+		 */
 		return null;
 	}
 }
