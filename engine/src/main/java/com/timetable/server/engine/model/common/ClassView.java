@@ -5,16 +5,23 @@ package com.timetable.server.engine.model.common;
  */
 public class ClassView {
 
+	private int classGroupId;
+
 	private int workDays;
 
 	private int totalPeriods;
 
 	private SubjectVsTeacher[][] dayPeriodInfo;
 
-	public ClassView(int workDays, int totalPeriods) {
+	public ClassView(int classGroupId,int workDays, int totalPeriods) {
+		this.classGroupId = classGroupId;
 		this.workDays = workDays;
 		this.totalPeriods = totalPeriods;
 		dayPeriodInfo = new SubjectVsTeacher[workDays][totalPeriods];
+	}
+
+	public int getClassGroupId() {
+		return classGroupId;
 	}
 
 	public SubjectVsTeacher getSubjectVsTeacher(int day, int period) {
