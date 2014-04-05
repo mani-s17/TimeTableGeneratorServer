@@ -2,6 +2,7 @@ package com.timetable.server.engine.model.common;
 
 /**
  * The individual class groups view of the time table output.
+ * On particular day and particular period, this will tell which teacher is teaching which subject.
  */
 public class ClassView {
 
