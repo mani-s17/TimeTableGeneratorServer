@@ -14,4 +14,15 @@
 	<name>Timetable Generator Server Engine</name>
 	<description>Module contains algorithm for computing TimeTable</description>
 
+	<dependencies>
+
+		<!-- JUnit Dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<!-- JUnit Dependencies -->
+
+	</dependencies>
+
 </project>
