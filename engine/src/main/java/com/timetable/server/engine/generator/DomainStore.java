@@ -1,15 +1,16 @@
 package com.timetable.server.engine.generator;
 
-import com.timetable.server.engine.model.common.ClassView;
-import com.timetable.server.engine.model.common.TeacherView;
-import com.timetable.server.engine.model.input.TeacherInfo;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.timetable.server.engine.model.common.ClassView;
+import com.timetable.server.engine.model.common.TeacherView;
+import com.timetable.server.engine.model.input.TeacherInfo;
+
 public class DomainStore {
-	private Map<Integer, Integer> idVsConsumedPeriods = new HashMap<>();
-	private Map<Integer, ClassView> idVsClassViews = new HashMap<>();
-	private Map<Integer, TeacherView> idVsTeacherViews = new HashMap<>();
+	private Map<Integer, Integer> idVsConsumedPeriods = new HashMap<Integer, Integer>();
+	private Map<Integer, ClassView> idVsClassViews = new HashMap<Integer, ClassView>();
+	private Map<Integer, TeacherView> idVsTeacherViews = new HashMap<Integer, TeacherView>();
 
 	public DomainStore(TeacherInfo[] teacherInfos, ClassView[] classViews, TeacherView[] teacherViews) {
 		initializeTeacherInfos(teacherInfos);
