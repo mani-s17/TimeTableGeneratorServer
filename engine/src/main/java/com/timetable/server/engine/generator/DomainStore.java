@@ -10,9 +10,9 @@ import java.util.Map;
 public class DomainStore {
 	private ClassView[] classViews;
 	private TeacherView[] teacherViews;
-	private Map<Integer, Integer> idVsConsumedPeriods = new HashMap<>();
-	private Map<Integer, ClassView> idVsClassViews = new HashMap<>();
-	private Map<Integer, TeacherView> idVsTeacherViews = new HashMap<>();
+	private Map<Integer, Integer> teacherIdVsConsumedPeriods = new HashMap<>();
+	private Map<String, ClassView> classIdVsClassViews = new HashMap<>();
+	private Map<Integer, TeacherView> teacherIdVsTeacherViews = new HashMap<>();
 
 	public DomainStore(TeacherInfo[] teacherInfos, ClassView[] classViews, TeacherView[] teacherViews) {
 		this.classViews = classViews;
@@ -24,46 +24,46 @@ public class DomainStore {
 
 	private void initializeTeacherInfos(TeacherInfo[] teacherInfos) {
 		for (TeacherInfo teacherInfo : teacherInfos) {
-			idVsConsumedPeriods.put(teacherInfo.getTeacherId(), teacherInfo.getWeeklyTeachingHours());
+			teacherIdVsConsumedPeriods.put(teacherInfo.getTeacherId(), teacherInfo.getWeeklyTeachingHours());
 		}
 	}
 
 	private void initializeClassViews(ClassView[] classViews) {
 		for (ClassView classView : classViews) {
-			idVsClassViews.put(classView.getClassGroupId(), classView);
+			classIdVsClassViews.put(classView.getClassGroupId(), classView);
 		}
 	}
 
 	private void initializeTeacherViews(TeacherView[] teacherViews) {
 		for (TeacherView teacherView : teacherViews) {
-			idVsTeacherViews.put(teacherView.getTeacherId(), teacherView);
+			teacherIdVsTeacherViews.put(teacherView.getTeacherId(), teacherView);
 		}
 	}
 
 	public boolean canConsumePeriods(int teacherId, int periods) {
-		Integer consumedPeriods = idVsConsumedPeriods.get(teacherId);
+		Integer consumedPeriods = teacherIdVsConsumedPeriods.get(teacherId);
 		consumedPeriods = consumedPeriods - periods;
 		return consumedPeriods >= 0 ? true : false;
 	}
 
 	public void consumePeriods(int teacherId, int periods) {
-		Integer consumedPeriods = idVsConsumedPeriods.get(teacherId);
+		Integer consumedPeriods = teacherIdVsConsumedPeriods.get(teacherId);
 		consumedPeriods = consumedPeriods - periods;
-		idVsConsumedPeriods.put(teacherId, consumedPeriods);
+		teacherIdVsConsumedPeriods.put(teacherId, consumedPeriods);
 	}
 
 	public void undoConsumePeriods(int teacherId, int periods) {
 		consumePeriods(teacherId, -periods);
 	}
 
-	public void updateClassView(int classX, SubjectVsTeacher subjectVsTeacher, int day, int period) {
-		ClassView classView = idVsClassViews.get(classX);
+	public void updateClassView(String classX, SubjectVsTeacher subjectVsTeacher, int day, int period) {
+		ClassView classView = classIdVsClassViews.get(classX);
 		classView.setSubjectVsTeacher(day, period, subjectVsTeacher);
 	}
 
 	// MAYBE this is not needed.
-	public void undoUpdateClassView(int classX, SubjectVsTeacher subjectVsTeacher, int day, int period) {
-		ClassView classView = idVsClassViews.get(classX);
+	public void undoUpdateClassView(String classX, SubjectVsTeacher subjectVsTeacher, int day, int period) {
+		ClassView classView = classIdVsClassViews.get(classX);
 		classView.setSubjectVsTeacher(day, period, subjectVsTeacher);
 	}
 

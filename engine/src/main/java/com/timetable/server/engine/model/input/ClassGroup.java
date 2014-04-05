@@ -4,20 +4,22 @@ package com.timetable.server.engine.model.input;
  * A class group is a combination of students (of a standard) who study a set of common subjects.
  *
  */
+// TODO should we not fix a set of teachers for a particular class group?? (that is it should be given as a
+//	part of the input.
 public class ClassGroup {
 
-	private int classStandard;
+	private String classGroupId;
 
 	private int totalStudents;
 
 	private String[] subjects;
 
-	public int getClassStandard() {
-		return classStandard;
+	public String getClassGroupId() {
+		return classGroupId;
 	}
 
-	public void setClassStandard(int classStandard) {
-		this.classStandard = classStandard;
+	public void setClassGroupId(String classGroupId) {
+		this.classGroupId = classGroupId;
 	}
 
 	public int getTotalStudents() {

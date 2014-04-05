@@ -6,7 +6,7 @@ package com.timetable.server.engine.model.common;
  */
 public class ClassView {
 
-	private int classGroupId;
+	private String classGroupId;
 
 	private int workDays;
 
@@ -14,14 +14,14 @@ public class ClassView {
 
 	private SubjectVsTeacher[][] dayPeriodInfo;
 
-	public ClassView(int classGroupId,int workDays, int totalPeriods) {
+	public ClassView(String classGroupId,int workDays, int totalPeriods) {
 		this.classGroupId = classGroupId;
 		this.workDays = workDays;
 		this.totalPeriods = totalPeriods;
 		dayPeriodInfo = new SubjectVsTeacher[workDays][totalPeriods];
 	}
 
-	public int getClassGroupId() {
+	public String getClassGroupId() {
 		return classGroupId;
 	}
 

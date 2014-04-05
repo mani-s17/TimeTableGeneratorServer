@@ -5,6 +5,8 @@ import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.TimeTableInput;
 import com.timetable.server.engine.model.output.SampleOutput;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Brute force implementation of the generator. we just keep trying all the possible values
@@ -18,82 +20,68 @@ public class BruteForceGenerator implements TimeTableGenerator {
 	private int totalPeriods;
 	private int totalTeachers;
 
+	private List<String> classIds;
+
 	private DomainStore domainStore;
-	private SubjectVsTeacher[] subjectVsTeachers;
+
+	private Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers;
 
 	private boolean stop = false;
 
 	public BruteForceGenerator(int totalDays, int totalClasses, int totalPeriods, int totalTeachers,
-							   DomainStore domainStore, SubjectVsTeacher[] subjectVsTeachers) {
+							   DomainStore domainStore, Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers) {
 		this.totalDays = totalDays;
 		this.totalClasses = totalClasses;
 		this.totalPeriods = totalPeriods;
 		this.totalTeachers = totalTeachers;
 		this.domainStore = domainStore;
-		this.subjectVsTeachers = subjectVsTeachers;
+		this.classIdVsSubjectTeachers = classIdVsSubjectTeachers;
 	}
 
 	// TODO take care of entities starting from 1 and not 0.
 	@Override
 	public SampleOutput generateTimeTable(TimeTableInput timeTableInput) {
-		int startClass = 1;
+		int startClassIdx = 0;
 		int startDay = 1;
 		int startPeriod = 1;
-		assignRecursive(startClass, startDay, startPeriod);
+		assignRecursive(startClassIdx, startDay, startPeriod);
 		return getSampleOutput();
 	}
 
 
-	/*
-	  Outline of the steps this algorithm should do.
-	  Basically a brute force algorithm, which involves deep recursion.
-
-	  assignRecursive(classX, dayX, periodX, STATE) {
-	  if (allClassesDone(classX)
-	  	STOP;
-
-		for (subject_teacher : subj_teachers) {
-			if (!checkIfValidIfUsed(STATE, ....)) // check all the constraints in here...MAYBE use the DomainStore here.
-				return;
-			updateState(STATE, ...)
-
-			if (doneWithThisClass(STATE)) {
-				assignRecursive(nextClass, dayInit, periodInit, STATE);
+	private void assignRecursive(int classIdx, int day, int period) {
+		if (classIdx >= totalClasses) {
+			if (checkAllConstrainsAreValid()) { //TODO stop updating domain store, once we get a solution.
+				logThisState();
+				stop = true;
 			}
-			else {
-				(dayNext, periodNext) --> get the next day and period.
-				assignRecursive(classX, dayNext, periodNext, STATE);
-			}
-
-			undoUpdate(STATE, ...) // undo update so that we can try a different combination.
-		}
-	  }
-	 */
-	private void assignRecursive(int classX, int day, int period) {
-		if (classX > totalClasses) { // does it mean if we reach here, then the domain store is a valid one??
 			return;
 		}
+
+		String classId = classIds.get(classIdx);
+		SubjectVsTeacher[] subjectVsTeachers = classIdVsSubjectTeachers.get(classId);
 
 		for (SubjectVsTeacher subjectVsTeacher : subjectVsTeachers) {
 			if (!checkIfValidIsUsed(subjectVsTeacher)) {
 				continue;
 			}
 			// try using this teacher
-			useAndUpdateState(subjectVsTeacher, classX, day, period);
+			useAndUpdateState(subjectVsTeacher, classId, day, period);
 
 			if (doneWithTheClass(day, period)) {
 				// start afresh for the next class.
-				assignRecursive(classX + 1, 1, 1);
+				assignRecursive(classIdx + 1, 1, 1);
 			}
 			else {
+				// else continue with next period/day, whatever it is.
 				int[] nextDayPeriod = getNextDayPeriod(day, period);
 				int nextDay = nextDayPeriod[0];
 				int nextPeriod = nextDayPeriod[1];
-				assignRecursive(classX, nextDay, nextPeriod);
+				assignRecursive(classIdx, nextDay, nextPeriod);
 			}
 
 			// undo using this teacher, so that we can try next combination
-			undoUseAndUpdateState(subjectVsTeacher, classX, day, period);
+			undoUseAndUpdateState(subjectVsTeacher, classId, day, period);
 		}
 	}
 
@@ -101,12 +89,12 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		return domainStore.canConsumePeriods(subjectVsTeacher.getTeacherId(), 1);
 	}
 
-	private void useAndUpdateState(SubjectVsTeacher subjectVsTeacher, int classX, int day, int period) {
+	private void useAndUpdateState(SubjectVsTeacher subjectVsTeacher, String classX, int day, int period) {
 		domainStore.consumePeriods(subjectVsTeacher.getTeacherId(), 1);
 		domainStore.updateClassView(classX, subjectVsTeacher, day, period);
 	}
 
-	private void undoUseAndUpdateState(SubjectVsTeacher subjectVsTeacher, int classX, int day, int period) {
+	private void undoUseAndUpdateState(SubjectVsTeacher subjectVsTeacher, String classX, int day, int period) {
 		domainStore.undoConsumePeriods(subjectVsTeacher.getTeacherId(), 1);
 		domainStore.undoUpdateClassView(classX, subjectVsTeacher, day, period);
 	}
@@ -150,5 +138,9 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		}
 
 		return sampleOutput;
+	}
+
+	private boolean checkAllConstrainsAreValid() {
+		return true;
 	}
 }

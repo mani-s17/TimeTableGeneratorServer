@@ -6,20 +6,20 @@ package com.timetable.server.engine.model.common;
  * to teach.
  */
 public class ClassGroupVsSubject {
-	private int classGroupId;
+	private String classGroupId;
 
-	private int subjectId;
+	private String subjectId;
 
-	public ClassGroupVsSubject(int classGroupId, int subjectId) {
+	public ClassGroupVsSubject(String classGroupId, String subjectId) {
 		this.classGroupId = classGroupId;
 		this.subjectId = subjectId;
 	}
 
-	public int getClassGroupId() {
+	public String getClassGroupId() {
 		return classGroupId;
 	}
 
-	public int getSubjectId() {
+	public String getSubjectId() {
 		return subjectId;
 	}
 }

@@ -6,16 +6,16 @@ package com.timetable.server.engine.model.common;
  * which teacher.
  */
 public class SubjectVsTeacher {
-	private int subjectId;
+	private String subjectId;
 
 	private int teacherId;
 
-	public SubjectVsTeacher(int subjectId, int teacherId) {
+	public SubjectVsTeacher(String subjectId, int teacherId) {
 		this.subjectId = subjectId;
 		this.teacherId = teacherId;
 	}
 
-	public int getSubjectId() {
+	public String getSubjectId() {
 		return subjectId;
 	}
 

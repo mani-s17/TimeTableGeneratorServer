@@ -2,35 +2,37 @@ package com.timetable.server.engine.model.output;
 
 import com.timetable.server.engine.model.common.ClassView;
 import com.timetable.server.engine.model.common.TeacherView;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SampleOutput {
 	private int totalClassGroups;
 	private int totalTeachers;
 
-	private ClassView[] classViews;
-	private TeacherView[] teacherViews;
+	private Map<String, ClassView> classIdVsClassView;
+	private Map<Integer, TeacherView> teacherIdVsTeacherView;
 
 	public SampleOutput(int totalClassGroups, int totalTeachers) {
 		this.totalClassGroups = totalClassGroups;
 		this.totalTeachers = totalTeachers;
 
-		classViews = new ClassView[totalClassGroups];
-		teacherViews = new TeacherView[totalTeachers];
+		classIdVsClassView = new HashMap<>();
+		teacherIdVsTeacherView = new HashMap<>();
 	}
 
-	public void setClassView(int classGroupId, ClassView classView) {
-		classViews[classGroupId] = classView;
+	public void setClassView(String classGroupId, ClassView classView) {
+		classIdVsClassView.put(classGroupId, classView);
 	}
 
-	public ClassView getClassView(int classGroupId) {
-		return classViews[classGroupId];
+	public ClassView getClassView(String classGroupId) {
+		return classIdVsClassView.get(classGroupId);
 	}
 
 	public void setTeacherView(int teacherId, TeacherView teacherView) {
-		teacherViews[teacherId] = teacherView;
+		teacherIdVsTeacherView.put(teacherId, teacherView);
 	}
 
 	public TeacherView getTeacherView(int teacherId) {
-		return teacherViews[teacherId];
+		return teacherIdVsTeacherView.get(teacherId);
 	}
 }
