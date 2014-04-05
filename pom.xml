@@ -14,6 +14,7 @@
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<jackson.version>1.9.10</jackson.version>
+		<junit.version>4.11</junit.version>
 	</properties>
 
 	<modules>
@@ -50,6 +51,15 @@
 			</dependency>
 			<!-- Jackson JSON Mapper -->
 
+			<!-- JUnit Dependencies -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- JUnit Dependencies -->
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -66,5 +76,39 @@
 			<id>prembhaskal</id>
 		</developer>
 	</developers>
+
+	<build>
+		<plugins>
+
+			<!-- Plugin for Clover Code Coverage Report -->
+			<!-- Use " mvn clean clover2:setup test clover2:aggregate clover2:clover " for report generation -->
+			<plugin>
+				<groupId>com.atlassian.maven.plugins</groupId>
+				<artifactId>maven-clover2-plugin</artifactId>
+				<version>3.2.2</version>
+				<configuration>
+					<license><![CDATA[pnNRMjgrANeRKrxwQwbcprhwQQNJAjfnRpSFTlUwumbftm
+mi2KH8pKYC0wOhgO4qyk1LFU2Kqr2UzItE2o5lNmhw5rdq
+nrMOSsrpPoqPprmoRmpstMORNpQqoppNmnVSvWSvVuOvtS
+WTwOxxsuXwxWnMqqmnmqmUUnptvrvvommmmmUUnptvrvvo
+mmmmmUU7oXaibW3ilsboWGirdfkUUnmmmm]]></license>
+					<targetPercentage>75%</targetPercentage>
+					<excludes>
+						<exclude>**/model/**/*.java</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>instrument</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Plugin for Clover Code Coverage Report -->
+
+		</plugins>
+	</build>
 
 </project>

@@ -48,6 +48,13 @@
 		</dependency>
 		<!-- Jackson JSON Mapper -->
 
+		<!-- JUnit Dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<!-- JUnit Dependencies -->
+
 	</dependencies>
 
 	<build>

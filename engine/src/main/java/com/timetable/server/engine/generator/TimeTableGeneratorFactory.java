@@ -19,10 +19,12 @@ public class TimeTableGeneratorFactory {
 
 		ClassGroup[] classGroups = timeTableInput.getClassGroups();
 
-		ClassView[] classViews;
-		TeacherView[] teacherViews;
+		ClassView[] classViews = null;
+		TeacherView[] teacherViews = null;
 
-		DomainStore domainStore = new DomainStore(teacherInfos, classViews, teacherViews);
+//		DomainStore domainStore = new DomainStore(teacherInfos, classViews, teacherViews);
+
+		return null;
 	}
 
 	private ClassView[] getClassViews(ClassGroup[] classGroups, int totalDays, int totalPeriods) {
@@ -35,11 +37,13 @@ public class TimeTableGeneratorFactory {
 		return classViews;
 	}
 
-	private TeacherView[] getTeacherViews(TeacherInfo[] teacherInfos, int totalDays) {
+	private TeacherView[] getTeacherViews(TeacherInfo[] teacherInfos, int totalDays, int totalPeriods) {
 		TeacherView[] teacherViews = new TeacherView[teacherInfos.length];
 		int i = 0;
 		for (TeacherInfo teacherInfo : teacherInfos) {
-			teacherViews[i++] = new TeacherView()
+			teacherViews[i++] = new TeacherView(teacherInfo.getTeacherId(), totalDays, totalPeriods);
 		}
+
+		return teacherViews;
 	}
 }
