@@ -83,6 +83,9 @@ nrMOSsrpPoqPprmoRmpstMORNpQqoppNmnVSvWSvVuOvtS
 WTwOxxsuXwxWnMqqmnmqmUUnptvrvvommmmmUUnptvrvvo
 mmmmmUU7oXaibW3ilsboWGirdfkUUnmmmm]]></license>
 					<targetPercentage>75%</targetPercentage>
+					<excludes>
+						<exclude>**/model/**/*.java</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
