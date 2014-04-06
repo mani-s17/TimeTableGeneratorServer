@@ -1,8 +1,9 @@
 package com.timetable.server.webservice.controller;
 
+import com.timetable.server.engine.model.input.Input;
 import com.timetable.server.engine.model.output.TimeTableOutput;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,12 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/generate")
 public class TimeTableController
 {
-	@RequestMapping(value = "{name}", method = RequestMethod.GET)
-	public @ResponseBody
-	TimeTableOutput generateTimeTable(@PathVariable String name)
+	@RequestMapping(method = RequestMethod.POST, headers = "content-type=application/json")
+	public @ResponseBody TimeTableOutput generateTimeTable(@RequestBody Input input)
 	{
 		TimeTableOutput timeTable = new TimeTableOutput();
-		timeTable.setTeacherId(name);
+		timeTable.setTeacherId("Mani");
 		timeTable.setClasses(new String[] {"7a", "7b"});
 		return timeTable;
 	}

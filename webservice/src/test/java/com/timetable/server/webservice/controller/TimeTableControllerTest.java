@@ -1,5 +1,6 @@
 package com.timetable.server.webservice.controller;
 
+import com.timetable.server.engine.model.input.Input;
 import com.timetable.server.engine.model.output.TimeTableOutput;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,7 +25,7 @@ public class TimeTableControllerTest
 	@Test
 	public void testGenerateTimeTable() throws Exception
 	{
-		TimeTableOutput timeTableOutput = timeTableController.generateTimeTable("Mani");
+		TimeTableOutput timeTableOutput = timeTableController.generateTimeTable(new Input());
 		Assert.assertEquals("Mani", timeTableOutput.getTeacherId());
 	}
 }
