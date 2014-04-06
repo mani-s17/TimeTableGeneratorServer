@@ -7,6 +7,9 @@ import com.timetable.server.engine.model.input.TeacherInfo;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The class which represents the state of the timetable as the algorithm is running.
+ */
 public class DomainStore {
 	private ClassView[] classViews;
 	private TeacherView[] teacherViews;

@@ -20,7 +20,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 	private int totalPeriods;
 	private int totalTeachers;
 
-	private List<String> classIds;
+	private String[] classIds;
 
 	private DomainStore domainStore;
 
@@ -28,12 +28,13 @@ public class BruteForceGenerator implements TimeTableGenerator {
 
 	private boolean stop = false;
 
-	public BruteForceGenerator(int totalDays, int totalClasses, int totalPeriods, int totalTeachers,
+	public BruteForceGenerator(int totalDays, int totalClasses, int totalPeriods, int totalTeachers, String[] classIds,
 							   DomainStore domainStore, Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers) {
 		this.totalDays = totalDays;
 		this.totalClasses = totalClasses;
 		this.totalPeriods = totalPeriods;
 		this.totalTeachers = totalTeachers;
+		this.classIds = classIds;
 		this.domainStore = domainStore;
 		this.classIdVsSubjectTeachers = classIdVsSubjectTeachers;
 	}
@@ -58,7 +59,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 			return;
 		}
 
-		String classId = classIds.get(classIdx);
+		String classId = classIds[classIdx];
 		SubjectVsTeacher[] subjectVsTeachers = classIdVsSubjectTeachers.get(classId);
 
 		for (SubjectVsTeacher subjectVsTeacher : subjectVsTeachers) {
