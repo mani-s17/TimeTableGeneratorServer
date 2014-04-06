@@ -1,13 +1,14 @@
 package com.timetable.server.engine.generator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.timetable.server.engine.model.common.ClassView;
 import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.ClassGroup;
 import com.timetable.server.engine.model.input.SubjectClassGroup;
 import com.timetable.server.engine.model.input.TeacherInfo;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TimeTableGenHelper {
 
@@ -43,14 +44,14 @@ public class TimeTableGenHelper {
 	public static Map<String, SubjectVsTeacher[]> getMapClassIdVsSubjectTeachers(TeacherInfo[] teacherInfos,
 																		   ClassGroup[] classGroups) {
 		// go over all the TeacherInfos to create the necessary information for each class..
-		Map<String, Map<String, Integer>> classIdVsMapSubjVsTchrId = new HashMap<>();
+		Map<String, Map<String, Integer>> classIdVsMapSubjVsTchrId = new HashMap<String, Map<String, Integer>>();
 		for (TeacherInfo teacherInfo : teacherInfos) {
 			int teacherId = teacherInfo.getTeacherId();
 			SubjectClassGroup[] subjectClassGroups = teacherInfo.getSubjectClassGroups();
 			for (SubjectClassGroup subjectClassGroup : subjectClassGroups) {
 				Map<String, Integer> subjectIdVsTeacherId = classIdVsMapSubjVsTchrId.get(subjectClassGroup.getClassGroup());
 				if (subjectIdVsTeacherId == null) {
-					subjectIdVsTeacherId = new HashMap<>();
+					subjectIdVsTeacherId = new HashMap<String, Integer>();
 					classIdVsMapSubjVsTchrId.put(subjectClassGroup.getClassGroup(), subjectIdVsTeacherId);
 				}
 				// FIXME this place will possibly override previously stored teacher for the class.
@@ -59,7 +60,7 @@ public class TimeTableGenHelper {
 			}
 		}
 
-		Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers = new HashMap<>();
+		Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers = new HashMap<String, SubjectVsTeacher[]>();
 
 		for (ClassGroup classGroup : classGroups) {
 			String classId = classGroup.getClassGroupId();

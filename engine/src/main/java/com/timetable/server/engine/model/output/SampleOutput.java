@@ -1,9 +1,10 @@
 package com.timetable.server.engine.model.output;
 
-import com.timetable.server.engine.model.common.ClassView;
-import com.timetable.server.engine.model.common.TeacherView;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.timetable.server.engine.model.common.ClassView;
+import com.timetable.server.engine.model.common.TeacherView;
 
 public class SampleOutput {
 	private int totalClassGroups;
@@ -16,8 +17,8 @@ public class SampleOutput {
 		this.totalClassGroups = totalClassGroups;
 		this.totalTeachers = totalTeachers;
 
-		classIdVsClassView = new HashMap<>();
-		teacherIdVsTeacherView = new HashMap<>();
+		classIdVsClassView = new HashMap<String, ClassView>();
+		teacherIdVsTeacherView = new HashMap<Integer, TeacherView>();
 	}
 
 	public void setClassView(String classGroupId, ClassView classView) {
