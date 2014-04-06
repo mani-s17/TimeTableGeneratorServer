@@ -1,11 +1,12 @@
 package com.timetable.server.engine.generator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.timetable.server.engine.model.common.ClassView;
 import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.TeacherInfo;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The class which represents the state of the timetable as the algorithm is running.
@@ -13,9 +14,9 @@ import java.util.Map;
 public class DomainStore {
 	private ClassView[] classViews;
 	private TeacherView[] teacherViews;
-	private Map<Integer, Integer> teacherIdVsConsumedPeriods = new HashMap<>();
-	private Map<String, ClassView> classIdVsClassViews = new HashMap<>();
-	private Map<Integer, TeacherView> teacherIdVsTeacherViews = new HashMap<>();
+	private Map<Integer, Integer> teacherIdVsConsumedPeriods = new HashMap<Integer, Integer>();
+	private Map<String, ClassView> classIdVsClassViews = new HashMap<String, ClassView>();
+	private Map<Integer, TeacherView> teacherIdVsTeacherViews = new HashMap<Integer, TeacherView>();
 
 	public DomainStore(TeacherInfo[] teacherInfos, ClassView[] classViews, TeacherView[] teacherViews) {
 		this.classViews = classViews;
