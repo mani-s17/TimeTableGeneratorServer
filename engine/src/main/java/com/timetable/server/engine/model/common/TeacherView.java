@@ -7,15 +7,11 @@ package com.timetable.server.engine.model.common;
 public class TeacherView {
 
 	private int teacherId;
-	private int workDays;
-	private int totalPeriods;
 
 	private ClassGroupVsSubject[][] dayPeriodInfo;
 
 	public TeacherView(int teacherId, int workDays, int totalPeriods) {
 		this.teacherId = teacherId;
-		this.workDays = workDays;
-		this.totalPeriods = totalPeriods;
 		dayPeriodInfo = new ClassGroupVsSubject[workDays][totalPeriods];
 	}
 

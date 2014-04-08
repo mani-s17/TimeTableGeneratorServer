@@ -24,4 +24,12 @@ public class SubjectClassGroup {
 	public void setClassGroup(String classGroup) {
 		this.classGroup = classGroup;
 	}
+
+	@Override
+	public String toString() {
+		return "SubjectClassGroup {" +
+				"subject='" + subject + '\'' +
+				", classGroup='" + classGroup + '\'' +
+				'}';
+	}
 }

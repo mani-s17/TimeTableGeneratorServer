@@ -22,4 +22,12 @@ public class SubjectVsTeacher {
 	public int getTeacherId() {
 		return teacherId;
 	}
+
+	@Override
+	public String toString() {
+		return "SubjectVsTeacher{" +
+				"subjectId='" + subjectId + '\'' +
+				", teacherId=" + teacherId +
+				'}';
+	}
 }
