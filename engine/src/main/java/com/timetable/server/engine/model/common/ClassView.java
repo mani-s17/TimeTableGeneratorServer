@@ -8,16 +8,10 @@ public class ClassView {
 
 	private String classGroupId;
 
-	private int workDays;
-
-	private int totalPeriods;
-
 	private SubjectVsTeacher[][] dayPeriodInfo;
 
 	public ClassView(String classGroupId,int workDays, int totalPeriods) {
 		this.classGroupId = classGroupId;
-		this.workDays = workDays;
-		this.totalPeriods = totalPeriods;
 		dayPeriodInfo = new SubjectVsTeacher[workDays][totalPeriods];
 	}
 
