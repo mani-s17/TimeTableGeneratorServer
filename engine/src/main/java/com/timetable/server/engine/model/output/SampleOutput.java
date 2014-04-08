@@ -17,8 +17,8 @@ public class SampleOutput {
 		this.totalClassGroups = totalClassGroups;
 		this.totalTeachers = totalTeachers;
 
-		classIdVsClassView = new HashMap<String, ClassView>();
-		teacherIdVsTeacherView = new HashMap<Integer, TeacherView>();
+		classIdVsClassView = new HashMap<>();
+		teacherIdVsTeacherView = new HashMap<>();
 	}
 
 	public void setClassView(String classGroupId, ClassView classView) {

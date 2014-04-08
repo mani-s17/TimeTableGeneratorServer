@@ -14,9 +14,9 @@ import com.timetable.server.engine.model.input.TeacherInfo;
 public class DomainStore {
 	private ClassView[] classViews;
 	private TeacherView[] teacherViews;
-	private Map<Integer, Integer> teacherIdVsConsumedPeriods = new HashMap<Integer, Integer>();
-	private Map<String, ClassView> classIdVsClassViews = new HashMap<String, ClassView>();
-	private Map<Integer, TeacherView> teacherIdVsTeacherViews = new HashMap<Integer, TeacherView>();
+	private Map<Integer, Integer> teacherIdVsConsumedPeriods = new HashMap<>();
+	private Map<String, ClassView> classIdVsClassViews = new HashMap<>();
+	private Map<Integer, TeacherView> teacherIdVsTeacherViews = new HashMap<>();
 
 	public DomainStore(TeacherInfo[] teacherInfos, ClassView[] classViews, TeacherView[] teacherViews) {
 		this.classViews = classViews;
