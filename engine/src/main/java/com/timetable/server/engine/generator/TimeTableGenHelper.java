@@ -44,14 +44,14 @@ public class TimeTableGenHelper {
 	public static Map<String, SubjectVsTeacher[]> getMapClassIdVsSubjectTeachers(TeacherInfo[] teacherInfos,
 																		   ClassGroup[] classGroups) {
 		// go over all the TeacherInfos to create the necessary information for each class..
-		Map<String, Map<String, Integer>> classIdVsMapSubjVsTchrId = new HashMap<String, Map<String, Integer>>();
+		Map<String, Map<String, Integer>> classIdVsMapSubjVsTchrId = new HashMap<>();
 		for (TeacherInfo teacherInfo : teacherInfos) {
 			int teacherId = teacherInfo.getTeacherId();
 			SubjectClassGroup[] subjectClassGroups = teacherInfo.getSubjectClassGroups();
 			for (SubjectClassGroup subjectClassGroup : subjectClassGroups) {
 				Map<String, Integer> subjectIdVsTeacherId = classIdVsMapSubjVsTchrId.get(subjectClassGroup.getClassGroup());
 				if (subjectIdVsTeacherId == null) {
-					subjectIdVsTeacherId = new HashMap<String, Integer>();
+					subjectIdVsTeacherId = new HashMap<>();
 					classIdVsMapSubjVsTchrId.put(subjectClassGroup.getClassGroup(), subjectIdVsTeacherId);
 				}
 				// FIXME this place will possibly override previously stored teacher for the class.
@@ -60,7 +60,7 @@ public class TimeTableGenHelper {
 			}
 		}
 
-		Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers = new HashMap<String, SubjectVsTeacher[]>();
+		Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers = new HashMap<>();
 
 		for (ClassGroup classGroup : classGroups) {
 			String classId = classGroup.getClassGroupId();
