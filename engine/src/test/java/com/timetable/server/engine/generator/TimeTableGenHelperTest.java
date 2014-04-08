@@ -6,12 +6,10 @@ import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.ClassGroup;
 import com.timetable.server.engine.model.input.SubjectClassGroup;
 import com.timetable.server.engine.model.input.TeacherInfo;
-import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class TimeTableGenHelperTest {
 
@@ -96,7 +94,7 @@ public class TimeTableGenHelperTest {
 		}
 	}
 
-	private ClassGroup getClassGroup1() {
+	public static ClassGroup getClassGroup1() {
 		ClassGroup classGroup = new ClassGroup();
 		classGroup.setClassGroupId("1A");
 		classGroup.setSubjects(new String[]{"MATHS", "PHY"});
@@ -104,7 +102,7 @@ public class TimeTableGenHelperTest {
 		return classGroup;
 	}
 
-	private ClassGroup getClassGroup2() {
+	public static ClassGroup getClassGroup2() {
 		ClassGroup classGroup = new ClassGroup();
 		classGroup.setClassGroupId("2B");
 		classGroup.setSubjects(new String[]{"HINDI", "PHY"});
@@ -112,17 +110,13 @@ public class TimeTableGenHelperTest {
 		return classGroup;
 	}
 
-	private TeacherInfo getTeacherInfo1() {
+	public static TeacherInfo getTeacherInfo1() {
 		TeacherInfo teacherInfo = new TeacherInfo();
 		teacherInfo.setTeacherId(1);
 		teacherInfo.setWeeklyTeachingHours(4);
 
-		SubjectClassGroup group1 = new SubjectClassGroup();
-		group1.setClassGroup("1A");
-		group1.setSubject("MATHS");
-		SubjectClassGroup group2 = new SubjectClassGroup();
-		group2.setClassGroup("2B");
-		group2.setSubject("HINDI");
+		SubjectClassGroup group1 = new SubjectClassGroup("MATHS", "1A");
+		SubjectClassGroup group2 = new SubjectClassGroup("HINDI", "2B");
 		SubjectClassGroup[] subjectClassGroups = new SubjectClassGroup[]{group1, group2};
 
 		teacherInfo.setSubjectClassGroups(subjectClassGroups);
@@ -130,21 +124,25 @@ public class TimeTableGenHelperTest {
 		return teacherInfo;
 	}
 
-	private TeacherInfo getTeacherInfo2() {
+	public static TeacherInfo getTeacherInfo2() {
 		TeacherInfo teacherInfo = new TeacherInfo();
 		teacherInfo.setTeacherId(2);
 		teacherInfo.setWeeklyTeachingHours(4);
 
-		SubjectClassGroup group1 = new SubjectClassGroup();
-		group1.setClassGroup("1A");
-		group1.setSubject("PHY");
-		SubjectClassGroup group2 = new SubjectClassGroup();
-		group2.setClassGroup("2B");
-		group2.setSubject("PHY");
+		SubjectClassGroup group1 = new SubjectClassGroup("PHY", "1A");
+		SubjectClassGroup group2 = new SubjectClassGroup("PHY", "2B");
 		SubjectClassGroup[] subjectClassGroups = new SubjectClassGroup[]{group1, group2};
 
 		teacherInfo.setSubjectClassGroups(subjectClassGroups);
 
 		return teacherInfo;
+	}
+
+	public static TeacherInfo[] getTeacherInfos() {
+		return new TeacherInfo[]{getTeacherInfo1(), getTeacherInfo2()};
+	}
+
+	public static ClassGroup[] getClassGroups() {
+		return new ClassGroup[]{getClassGroup1(), getClassGroup2()};
 	}
 }

@@ -9,6 +9,13 @@ public class SubjectClassGroup {
 
 	private String classGroup;
 
+	public SubjectClassGroup() {};
+
+	public SubjectClassGroup(String subject, String classGroup) {
+		this.subject = subject;
+		this.classGroup = classGroup;
+	}
+
 	public String getSubject() {
 		return subject;
 	}

@@ -44,6 +44,14 @@ public class DomainStore {
 		}
 	}
 
+	public ClassView[] getClassViews() {
+		return classViews;
+	}
+
+	public TeacherView[] getTeacherViews() {
+		return teacherViews;
+	}
+
 	public boolean canConsumePeriods(int teacherId, int periods) {
 		Integer consumedPeriods = teacherIdVsConsumedPeriods.get(teacherId);
 		consumedPeriods = consumedPeriods - periods;
@@ -60,6 +68,10 @@ public class DomainStore {
 		consumePeriods(teacherId, -periods);
 	}
 
+	public int getConsumedPeriods(int teacherId) {
+		return teacherIdVsConsumedPeriods.get(teacherId);
+	}
+
 	public void updateClassView(String classX, SubjectVsTeacher subjectVsTeacher, int day, int period) {
 		ClassView classView = classIdVsClassViews.get(classX);
 		classView.setSubjectVsTeacher(day, period, subjectVsTeacher);
@@ -69,13 +81,5 @@ public class DomainStore {
 	public void undoUpdateClassView(String classX, SubjectVsTeacher subjectVsTeacher, int day, int period) {
 		ClassView classView = classIdVsClassViews.get(classX);
 		classView.setSubjectVsTeacher(day, period, subjectVsTeacher);
-	}
-
-	public ClassView[] getClassViews() {
-		return classViews;
-	}
-
-	public TeacherView[] getTeacherViews() {
-		return teacherViews;
 	}
 }
