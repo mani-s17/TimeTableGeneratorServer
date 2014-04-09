@@ -42,16 +42,20 @@ public class BruteForceGenerator implements TimeTableGenerator {
 	@Override
 	public SampleOutput generateTimeTable(TimeTableInput timeTableInput) {
 		int startClassIdx = 0;
-		int startDay = 1;
-		int startPeriod = 1;
+		int startDay = 0;
+		int startPeriod = 0;
+		stop = false;
 		assignRecursive(startClassIdx, startDay, startPeriod);
 		return getSampleOutput();
 	}
 
 
 	private void assignRecursive(int classIdx, int day, int period) {
+		if (stop)
+			return;
+
 		if (classIdx >= totalClasses) {
-			if (checkAllConstrainsAreValid()) { //TODO stop updating domain store, once we get a solution.
+			if (checkAllConstraintsAreValid()) {
 				logThisState();
 				stop = true;
 			}
@@ -62,7 +66,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		SubjectVsTeacher[] subjectVsTeachers = classIdVsSubjectTeachers.get(classId);
 
 		for (SubjectVsTeacher subjectVsTeacher : subjectVsTeachers) {
-			if (!checkIfValidIsUsed(subjectVsTeacher)) {
+			if (canUse(subjectVsTeacher)) {
 				continue;
 			}
 			// try using this teacher
@@ -80,12 +84,16 @@ public class BruteForceGenerator implements TimeTableGenerator {
 				assignRecursive(classIdx, nextDay, nextPeriod);
 			}
 
+			// check if we can stop after doing this, so that we don't lose the last update.
+			if (stop)
+				return;
+
 			// undo using this teacher, so that we can try next combination
 			undoUseAndUpdateState(subjectVsTeacher, classId, day, period);
 		}
 	}
 
-	private boolean checkIfValidIsUsed(SubjectVsTeacher subjectVsTeacher) {
+	private boolean canUse(SubjectVsTeacher subjectVsTeacher) {
 		return domainStore.canConsumePeriods(subjectVsTeacher.getTeacherId(), 1);
 	}
 
@@ -100,26 +108,16 @@ public class BruteForceGenerator implements TimeTableGenerator {
 	}
 
 	private boolean doneWithTheClass(int day, int period) {
-		// since we are traversing the days and periods in a linearly manner,
-		// if we reach the last day/last period, we ar done with this class.
-		if (day == totalDays && period == totalPeriods)
+		// since we are traversing the days and periods in a linearly,
+		// if we reach the last day/last period, we are done with this class.
+		if (day == (totalDays - 1) && period == (totalPeriods - 1))
 			return true;
 		return false;
 	}
 
 	// return the next_dat and next_period.
 	private int[] getNextDayPeriod(int day, int period) {
-		// increment period
-		int nextPeriod = (period % totalPeriods) + 1;
-		// check if overflown
-		int nextDay;
-		if (nextPeriod > period) {
-			nextDay = day;
-		} else { // if period overflows, goto next day
-			nextDay = (day % totalDays) + 1;
-		}
-
-		return new int[]{nextDay, nextPeriod};
+		return TimeTableGenHelper.getNextDayPeriod(day, period, totalDays, totalPeriods);
 	}
 
 	// TODO ... log this state... this is to print the status of the domain store when the algorithm stopped.
@@ -140,7 +138,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		return sampleOutput;
 	}
 
-	private boolean checkAllConstrainsAreValid() {
+	private boolean checkAllConstraintsAreValid() {
 		return true;
 	}
 }

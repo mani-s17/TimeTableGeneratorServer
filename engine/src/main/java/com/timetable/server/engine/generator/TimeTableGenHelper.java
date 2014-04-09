@@ -79,4 +79,16 @@ public class TimeTableGenHelper {
 		return classIdVsSubjectTeachers;
 	}
 
+	// return the next_day and next_period.
+	public static int[] getNextDayPeriod(int day, int period, int totalDays, int totalPeriods) {
+		// increment period
+		int nextPeriod = (period % totalPeriods) + 1;
+		int nextDay = day;
+		if (nextPeriod < period) { // if period overflows, goto next day
+			nextDay = (day % totalDays) + 1;
+		}
+
+		return new int[]{nextDay, nextPeriod};
+	}
+
 }

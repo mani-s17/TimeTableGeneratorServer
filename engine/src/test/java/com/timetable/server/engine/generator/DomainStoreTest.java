@@ -26,8 +26,8 @@ public class DomainStoreTest {
 
 	@Before
 	public void setUp() {
-		TeacherInfo[] teacherInfos = TimeTableGenHelperTest.getTeacherInfos();
-		ClassGroup[] classGroups = TimeTableGenHelperTest.getClassGroups();
+		TeacherInfo[] teacherInfos = TestHelper.getTeacherInfos();
+		ClassGroup[] classGroups = TestHelper.getClassGroups();
 
 		ClassView[] classViews = TimeTableGenHelper.getClassViews(classGroups, totalDays, totalPeriods);
 		TeacherView[] teacherViews = TimeTableGenHelper.getTeacherViews(teacherInfos, totalDays, totalPeriods);

@@ -4,11 +4,12 @@ import com.timetable.server.engine.model.common.ClassView;
 import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.ClassGroup;
-import com.timetable.server.engine.model.input.SubjectClassGroup;
 import com.timetable.server.engine.model.input.TeacherInfo;
+import java.sql.Time;
 import java.util.Map;
 import org.junit.Test;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class TimeTableGenHelperTest {
@@ -19,8 +20,8 @@ public class TimeTableGenHelperTest {
 		int totalPeriods = 4;
 
 		ClassGroup[] classGroups = new ClassGroup[2];
-		classGroups[0] = getClassGroup1();
-		classGroups[1] = getClassGroup2();
+		classGroups[0] = TestHelper.getClassGroup1();
+		classGroups[1] = TestHelper.getClassGroup2();
 
 		ClassView[] classViews = TimeTableGenHelper.getClassViews(classGroups, totalDays, totalPeriods);
 		assertEquals("size of returned array is not proper", classViews.length, 2);
@@ -35,8 +36,8 @@ public class TimeTableGenHelperTest {
 	@Test
 	public void testClassIdsIsProper() {
 		ClassGroup[] classGroups = new ClassGroup[2];
-		classGroups[0] = getClassGroup1();
-		classGroups[1] = getClassGroup2();
+		classGroups[0] = TestHelper.getClassGroup1();
+		classGroups[1] = TestHelper.getClassGroup2();
 
 		String[] classIds = TimeTableGenHelper.getClassIds(classGroups);
 
@@ -51,8 +52,8 @@ public class TimeTableGenHelperTest {
 		int totalPeriods = 4;
 
 		TeacherInfo[] teacherInfos = new TeacherInfo[2];
-		teacherInfos[0] = getTeacherInfo1();
-		teacherInfos[1] = getTeacherInfo2();
+		teacherInfos[0] = TestHelper.getTeacherInfo1();
+		teacherInfos[1] = TestHelper.getTeacherInfo2();
 
 		TeacherView[] teacherViews = TimeTableGenHelper.getTeacherViews(teacherInfos, totalDays, totalPeriods);
 		assertEquals("size of returned array is not proper", teacherViews.length, 2);
@@ -64,8 +65,8 @@ public class TimeTableGenHelperTest {
 
 	@Test
 	public void testGetClassIdVsSubjectTeachersMap() {
-		TeacherInfo[] teacherInfos = new TeacherInfo[]{getTeacherInfo1(), getTeacherInfo2()};
-		ClassGroup[] classGroups = new ClassGroup[]{getClassGroup1(), getClassGroup2()};
+		TeacherInfo[] teacherInfos = new TeacherInfo[]{TestHelper.getTeacherInfo1(), TestHelper.getTeacherInfo2()};
+		ClassGroup[] classGroups = new ClassGroup[]{TestHelper.getClassGroup1(), TestHelper.getClassGroup2()};
 
 		SubjectVsTeacher[][] expectedSubjTeachers = new SubjectVsTeacher[2][2];
 		expectedSubjTeachers[0][0] = new SubjectVsTeacher("MATHS", 1);
@@ -94,55 +95,24 @@ public class TimeTableGenHelperTest {
 		}
 	}
 
-	public static ClassGroup getClassGroup1() {
-		ClassGroup classGroup = new ClassGroup();
-		classGroup.setClassGroupId("1A");
-		classGroup.setSubjects(new String[]{"MATHS", "PHY"});
-		classGroup.setTotalStudents(40);
-		return classGroup;
+	@Test
+	public void testNextDayPeriod() {
+		int totalDays = 4;
+		int totalPeriods = 5;
+
+		// simple period increment.
+		int[] nextDayPeriod;
+		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(1, 1, totalDays, totalPeriods);
+		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{1, 2});
+
+		// period overflow
+		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(1, 5, totalDays, totalPeriods);
+		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{2, 1});
+
+		//both overflow
+		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(4, 5, totalDays, totalPeriods);
+		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{1, 1});
 	}
 
-	public static ClassGroup getClassGroup2() {
-		ClassGroup classGroup = new ClassGroup();
-		classGroup.setClassGroupId("2B");
-		classGroup.setSubjects(new String[]{"HINDI", "PHY"});
-		classGroup.setTotalStudents(35);
-		return classGroup;
-	}
 
-	public static TeacherInfo getTeacherInfo1() {
-		TeacherInfo teacherInfo = new TeacherInfo();
-		teacherInfo.setTeacherId(1);
-		teacherInfo.setWeeklyTeachingHours(4);
-
-		SubjectClassGroup group1 = new SubjectClassGroup("MATHS", "1A");
-		SubjectClassGroup group2 = new SubjectClassGroup("HINDI", "2B");
-		SubjectClassGroup[] subjectClassGroups = new SubjectClassGroup[]{group1, group2};
-
-		teacherInfo.setSubjectClassGroups(subjectClassGroups);
-
-		return teacherInfo;
-	}
-
-	public static TeacherInfo getTeacherInfo2() {
-		TeacherInfo teacherInfo = new TeacherInfo();
-		teacherInfo.setTeacherId(2);
-		teacherInfo.setWeeklyTeachingHours(4);
-
-		SubjectClassGroup group1 = new SubjectClassGroup("PHY", "1A");
-		SubjectClassGroup group2 = new SubjectClassGroup("PHY", "2B");
-		SubjectClassGroup[] subjectClassGroups = new SubjectClassGroup[]{group1, group2};
-
-		teacherInfo.setSubjectClassGroups(subjectClassGroups);
-
-		return teacherInfo;
-	}
-
-	public static TeacherInfo[] getTeacherInfos() {
-		return new TeacherInfo[]{getTeacherInfo1(), getTeacherInfo2()};
-	}
-
-	public static ClassGroup[] getClassGroups() {
-		return new ClassGroup[]{getClassGroup1(), getClassGroup2()};
-	}
 }
