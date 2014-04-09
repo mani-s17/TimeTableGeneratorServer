@@ -5,7 +5,6 @@ import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.TimeTableInput;
 import com.timetable.server.engine.model.output.SampleOutput;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -97,7 +96,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 
 	private void undoUseAndUpdateState(SubjectVsTeacher subjectVsTeacher, String classX, int day, int period) {
 		domainStore.undoConsumePeriods(subjectVsTeacher.getTeacherId(), 1);
-		domainStore.undoUpdateClassView(classX, subjectVsTeacher, day, period);
+		domainStore.undoUpdateClassView(classX, day, period);
 	}
 
 	private boolean doneWithTheClass(int day, int period) {

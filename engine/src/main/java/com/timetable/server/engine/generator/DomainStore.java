@@ -16,6 +16,7 @@ public class DomainStore {
 	private TeacherView[] teacherViews;
 	private Map<Integer, Integer> teacherIdVsConsumedPeriods = new HashMap<>();
 	private Map<String, ClassView> classIdVsClassViews = new HashMap<>();
+	// TODO update this constraint too.
 	private Map<Integer, TeacherView> teacherIdVsTeacherViews = new HashMap<>();
 
 	public DomainStore(TeacherInfo[] teacherInfos, ClassView[] classViews, TeacherView[] teacherViews) {
@@ -55,7 +56,7 @@ public class DomainStore {
 	public boolean canConsumePeriods(int teacherId, int periods) {
 		Integer consumedPeriods = teacherIdVsConsumedPeriods.get(teacherId);
 		consumedPeriods = consumedPeriods - periods;
-		return consumedPeriods >= 0 ? true : false;
+		return consumedPeriods >= 0;
 	}
 
 	public void consumePeriods(int teacherId, int periods) {
@@ -78,8 +79,12 @@ public class DomainStore {
 	}
 
 	// MAYBE this is not needed.
-	public void undoUpdateClassView(String classX, SubjectVsTeacher subjectVsTeacher, int day, int period) {
+	public void undoUpdateClassView(String classX, int day, int period) {
 		ClassView classView = classIdVsClassViews.get(classX);
-		classView.setSubjectVsTeacher(day, period, subjectVsTeacher);
+		classView.setSubjectVsTeacher(day, period, null);
+	}
+
+	public ClassView getClassView(String classX) {
+		return classIdVsClassViews.get(classX);
 	}
 }
