@@ -1,5 +1,6 @@
 package com.timetable.server.engine.generator;
 
+import com.timetable.server.engine.model.common.ClassGroupVsSubject;
 import com.timetable.server.engine.model.common.ClassView;
 import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
@@ -55,8 +56,8 @@ public class DomainStoreTest {
 		// after undo the consumed periods should be reverted.
 		domainStore.undoConsumePeriods(1, 2);
 
-		assertTrue("consumption of periods is improper", domainStore.canConsumePeriods(1, 2));
-		assertEquals("consumption of periods is improper", domainStore.getConsumedPeriods(1), 2);
+		assertTrue("consumption-undo of periods is improper", domainStore.canConsumePeriods(1, 2));
+		assertEquals("consumption-undo of periods is improper", domainStore.getConsumedPeriods(1), 2);
 	}
 
 	@Test
@@ -74,9 +75,31 @@ public class DomainStoreTest {
 		SubjectVsTeacher actualSubjectVsTeacher2 = classView.getSubjectVsTeacher(0, 1);
 		assertEquals("class view update is improper", actualSubjectVsTeacher2, subjectVsTeacher2);
 
-		// undo operation should be properly handled
+		// test the undo operation.
 		domainStore.undoUpdateClassView("1A", 0, 0);
-
 		assertNull("class view update undo is improper", classView.getSubjectVsTeacher(0, 0));
+	}
+
+	@Test
+	public void testUpdateTeacherView() {
+		int teacherId = 1;
+		String classX1 = "1A";
+		String subject1 = "PHY";
+		domainStore.updateTeacherView(teacherId, classX1, subject1, 0, 0);
+
+		String classX2 = "2B";
+		String subject2 = "PHY";
+		domainStore.updateTeacherView(teacherId, classX2, subject2, 0, 1);
+
+		TeacherView teacherView = domainStore.getTeacherView(teacherId);
+
+		ClassGroupVsSubject expClassGroupVsSubject1 = new ClassGroupVsSubject(classX1, subject1);
+		assertEquals("teacher view update is improper", teacherView.getClassGroupVsSubject(0, 0), expClassGroupVsSubject1);
+		ClassGroupVsSubject expClassGroupVsSubject2 = new ClassGroupVsSubject(classX2, subject2);
+		assertEquals("teacher view update is improper", teacherView.getClassGroupVsSubject(0, 1), expClassGroupVsSubject2);
+
+		// test the undo operation.
+		domainStore.undoUpdateTeacherView(teacherId, 0, 1);
+		assertNull("teacher view update undo is improper", teacherView.getClassGroupVsSubject(0, 1));
 	}
 }

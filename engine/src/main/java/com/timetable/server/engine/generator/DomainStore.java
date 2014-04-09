@@ -1,5 +1,6 @@
 package com.timetable.server.engine.generator;
 
+import com.timetable.server.engine.model.common.ClassGroupVsSubject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,6 @@ public class DomainStore {
 	private TeacherView[] teacherViews;
 	private Map<Integer, Integer> teacherIdVsConsumedPeriods = new HashMap<>();
 	private Map<String, ClassView> classIdVsClassViews = new HashMap<>();
-	// TODO update this constraint too.
 	private Map<Integer, TeacherView> teacherIdVsTeacherViews = new HashMap<>();
 
 	public DomainStore(TeacherInfo[] teacherInfos, ClassView[] classViews, TeacherView[] teacherViews) {
@@ -86,5 +86,21 @@ public class DomainStore {
 
 	public ClassView getClassView(String classX) {
 		return classIdVsClassViews.get(classX);
+	}
+
+	public void updateTeacherView(int teacherId, String classX, String subject, int day, int period) {
+		TeacherView teacherView = teacherIdVsTeacherViews.get(teacherId);
+
+		ClassGroupVsSubject classGroupVsSubject = new ClassGroupVsSubject(classX, subject);
+		teacherView.setClassGroupVsSubject(day, period, classGroupVsSubject);
+	}
+
+	public void undoUpdateTeacherView(int teacherId, int day, int period) {
+		TeacherView teacherView = teacherIdVsTeacherViews.get(teacherId);
+		teacherView.setClassGroupVsSubject(day, period, null);
+	}
+
+	public TeacherView getTeacherView(int teacherId) {
+		return teacherIdVsTeacherViews.get(teacherId);
 	}
 }

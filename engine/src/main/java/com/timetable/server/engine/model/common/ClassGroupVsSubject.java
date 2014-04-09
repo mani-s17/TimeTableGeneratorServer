@@ -22,4 +22,32 @@ public class ClassGroupVsSubject {
 	public String getSubjectId() {
 		return subjectId;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		ClassGroupVsSubject that = (ClassGroupVsSubject) o;
+
+		if (classGroupId != null ? !classGroupId.equals(that.classGroupId) : that.classGroupId != null) return false;
+		if (subjectId != null ? !subjectId.equals(that.subjectId) : that.subjectId != null) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = classGroupId != null ? classGroupId.hashCode() : 0;
+		result = 31 * result + (subjectId != null ? subjectId.hashCode() : 0);
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "ClassGroupVsSubject{" +
+				"classGroupId='" + classGroupId + '\'' +
+				", subjectId='" + subjectId + '\'' +
+				'}';
+	}
 }
