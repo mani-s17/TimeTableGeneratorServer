@@ -1,7 +1,6 @@
 package com.timetable.server.webservice.controller;
 
 import com.timetable.server.engine.model.input.RawInput;
-import com.timetable.server.engine.model.output.TimeTableOutput;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TimeTableController
 {
 	@RequestMapping(method = RequestMethod.POST, headers = "content-type=application/json")
-	public @ResponseBody TimeTableOutput generateTimeTable(@RequestBody RawInput input)
+	public @ResponseBody String generateTimeTable(@RequestBody RawInput input)
 	{
-		TimeTableOutput timeTable = new TimeTableOutput();
-		timeTable.setTeacherId("Mani");
-		timeTable.setClasses(new String[] {"7a", "7b"});
-		return timeTable;
+		StringBuilder response = new StringBuilder();
+		response.append("Working Days Per Week - ");
+		response.append(input.getWorkingDays());
+		response.append("\n Number of Periods Per day - ");
+		response.append(input.getPeriodPerDay());
+		return response.toString();
 	}
 }
