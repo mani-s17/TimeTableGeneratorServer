@@ -50,14 +50,14 @@ public class DomainStoreTest {
 		assertTrue("consumption of periods is improper", domainStore.canConsumePeriods(2, 1));
 
 		// consumed periods is also proper
-		assertEquals("consumption of periods is improper", domainStore.getConsumedPeriods(1), 0);
-		assertEquals("consumption of periods is improper", domainStore.getConsumedPeriods(2), 1);
+		assertEquals("consumption of periods is improper", domainStore.getRemainingPeriods(1), 0);
+		assertEquals("consumption of periods is improper", domainStore.getRemainingPeriods(2), 1);
 
 		// after undo the consumed periods should be reverted.
 		domainStore.undoConsumePeriods(1, 2);
 
 		assertTrue("consumption-undo of periods is improper", domainStore.canConsumePeriods(1, 2));
-		assertEquals("consumption-undo of periods is improper", domainStore.getConsumedPeriods(1), 2);
+		assertEquals("consumption-undo of periods is improper", domainStore.getRemainingPeriods(1), 2);
 	}
 
 	@Test

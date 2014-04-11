@@ -80,12 +80,13 @@ public class TimeTableGenHelper {
 	}
 
 	// return the next_day and next_period.
+	// all calculations are 0 based. (0 to n-1)
 	public static int[] getNextDayPeriod(int day, int period, int totalDays, int totalPeriods) {
 		// increment period
-		int nextPeriod = (period % totalPeriods) + 1;
+		int nextPeriod = ((period + 1) % totalPeriods);
 		int nextDay = day;
 		if (nextPeriod < period) { // if period overflows, goto next day
-			nextDay = (day % totalDays) + 1;
+			nextDay = ((day + 1) % totalDays);
 		}
 
 		return new int[]{nextDay, nextPeriod};

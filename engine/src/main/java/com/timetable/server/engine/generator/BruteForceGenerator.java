@@ -66,7 +66,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		SubjectVsTeacher[] subjectVsTeachers = classIdVsSubjectTeachers.get(classId);
 
 		for (SubjectVsTeacher subjectVsTeacher : subjectVsTeachers) {
-			if (canUse(subjectVsTeacher)) {
+			if (!canUse(subjectVsTeacher)) {
 				continue;
 			}
 			// try using this teacher
@@ -74,7 +74,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 
 			if (doneWithTheClass(day, period)) {
 				// start afresh for the next class.
-				assignRecursive(classIdx + 1, 1, 1);
+				assignRecursive(classIdx + 1, 0, 0);
 			}
 			else {
 				// else continue with next period/day, whatever it is.
@@ -84,7 +84,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 				assignRecursive(classIdx, nextDay, nextPeriod);
 			}
 
-			// check if we can stop after doing this, so that we don't lose the last update.
+			// check if we can stop after doing this, so that we don't lose the last update after getting a PROPER output.
 			if (stop)
 				return;
 
@@ -100,11 +100,14 @@ public class BruteForceGenerator implements TimeTableGenerator {
 	private void useAndUpdateState(SubjectVsTeacher subjectVsTeacher, String classX, int day, int period) {
 		domainStore.consumePeriods(subjectVsTeacher.getTeacherId(), 1);
 		domainStore.updateClassView(classX, subjectVsTeacher, day, period);
+		domainStore.updateTeacherView(subjectVsTeacher.getTeacherId(), classX, subjectVsTeacher.getSubjectId(),
+				day, period);
 	}
 
 	private void undoUseAndUpdateState(SubjectVsTeacher subjectVsTeacher, String classX, int day, int period) {
 		domainStore.undoConsumePeriods(subjectVsTeacher.getTeacherId(), 1);
 		domainStore.undoUpdateClassView(classX, day, period);
+		domainStore.undoUpdateTeacherView(subjectVsTeacher.getTeacherId(), day, period);
 	}
 
 	private boolean doneWithTheClass(int day, int period) {
@@ -122,23 +125,24 @@ public class BruteForceGenerator implements TimeTableGenerator {
 
 	// TODO ... log this state... this is to print the status of the domain store when the algorithm stopped.
 	private void logThisState() {
-
+		System.out.println("GOT THE SOLUTION !!!");
 	}
 
 	private SampleOutput getSampleOutput() {
 		SampleOutput sampleOutput = new SampleOutput(totalClasses, totalTeachers);
-		for (ClassView classView : domainStore.getClassViews()) {
-			sampleOutput.setClassView(classView.getClassGroupId(), classView);
-		}
-
-		for (TeacherView teacherView : domainStore.getTeacherViews()) {
-			sampleOutput.setTeacherView(teacherView.getTeacherId(), teacherView);
-		}
+		sampleOutput.setClassViews(domainStore.getClassViews());
+		sampleOutput.setTeacherViews(domainStore.getTeacherViews());
 
 		return sampleOutput;
 	}
 
 	private boolean checkAllConstraintsAreValid() {
+		for (TeacherView teacherView: domainStore.getTeacherViews()) {
+			int remainingPeriods = domainStore.getRemainingPeriods(teacherView.getTeacherId());
+			if (remainingPeriods > 0)
+				return false;
+		}
+
 		return true;
 	}
 }

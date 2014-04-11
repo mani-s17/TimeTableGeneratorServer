@@ -1,8 +1,5 @@
 package com.timetable.server.engine.model.output;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.timetable.server.engine.model.common.ClassView;
 import com.timetable.server.engine.model.common.TeacherView;
 
@@ -10,30 +7,30 @@ public class SampleOutput {
 	private int totalClassGroups;
 	private int totalTeachers;
 
-	private Map<String, ClassView> classIdVsClassView;
-	private Map<Integer, TeacherView> teacherIdVsTeacherView;
+	private ClassView[] classViews;
+	private TeacherView[] teacherViews;
 
 	public SampleOutput(int totalClassGroups, int totalTeachers) {
 		this.totalClassGroups = totalClassGroups;
 		this.totalTeachers = totalTeachers;
 
-		classIdVsClassView = new HashMap<>();
-		teacherIdVsTeacherView = new HashMap<>();
+		classViews = new ClassView[totalClassGroups];
+		teacherViews = new TeacherView[totalTeachers];
 	}
 
-	public void setClassView(String classGroupId, ClassView classView) {
-		classIdVsClassView.put(classGroupId, classView);
+	public ClassView[] getClassViews() {
+		return classViews;
 	}
 
-	public ClassView getClassView(String classGroupId) {
-		return classIdVsClassView.get(classGroupId);
+	public void setClassViews(ClassView[] classViews) {
+		this.classViews = classViews;
 	}
 
-	public void setTeacherView(int teacherId, TeacherView teacherView) {
-		teacherIdVsTeacherView.put(teacherId, teacherView);
+	public TeacherView[] getTeacherViews() {
+		return teacherViews;
 	}
 
-	public TeacherView getTeacherView(int teacherId) {
-		return teacherIdVsTeacherView.get(teacherId);
+	public void setTeacherViews(TeacherView[] teacherViews) {
+		this.teacherViews = teacherViews;
 	}
 }
