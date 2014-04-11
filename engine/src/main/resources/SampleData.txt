@@ -1,101 +1,33 @@
-Entities
+Release 1
+=========
 
-Teachers
-========
-1. T1
-2. T2
-3. T3
-4. T4
-5. T5
-6. T6
+Input:
+======
+{
+	"workingDays":5,
+	"periodPerDay":8,
+	"teachers":
+	[
+		{"id":1,"hours":18,"standardToSubjectMap":{"1":["Sub1","Sub2","Sub3","Sub4","Sub5"],"2":["Sub1","Sub2","Sub3","Sub4","Sub5"],"3":["Sub1","Sub2","Sub3","Sub4","Sub5"]}},
+		{"id":2,"hours":18,"standardToSubjectMap":{"1":["Sub1","Sub2","Sub3","Sub4","Sub5"],"2":["Sub1","Sub2","Sub3","Sub4","Sub5"],"3":["Sub1","Sub2","Sub3","Sub4","Sub5"]}},
+		{"id":3,"hours":15,"standardToSubjectMap":{"1":["Sub1","Sub2","Sub3","Sub4","Sub5"],"2":["Sub1","Sub2","Sub3","Sub4","Sub5"],"3":["Sub1","Sub2","Sub3","Sub4","Sub5"]}},
+		{"id":4,"hours":10,"standardToSubjectMap":{"1":["Sub1","Sub2","Sub3","Sub4","Sub5"],"2":["Sub1","Sub2","Sub3","Sub4","Sub5"],"3":["Sub1","Sub2","Sub3","Sub4","Sub5"]}},
+		{"id":5,"hours":11,"standardToSubjectMap":{"1":["Sub1","Sub2","Sub3","Sub4","Sub5"],"2":["Sub1","Sub2","Sub3","Sub4","Sub5"],"3":["Sub1","Sub2","Sub3","Sub4","Sub5"]}}
+	],
+	"classGroups":
+	[
+		{"id":1,"standardId":1,"subjectToHourMap":{"Sub1":2,"Sub2":7,"Sub3":2,"Sub4":3,"Sub5":4}},
+		{"id":2,"standardId":1,"subjectToHourMap":{"Sub1":1,"Sub2":5,"Sub3":7,"Sub4":1,"Sub5":9}},
+		{"id":3,"standardId":1,"subjectToHourMap":{"Sub1":5,"Sub2":8,"Sub3":5,"Sub4":4,"Sub5":4}},
+		{"id":4,"standardId":1,"subjectToHourMap":{"Sub1":2,"Sub2":3,"Sub3":3,"Sub4":2,"Sub5":1}},
+		{"id":5,"standardId":2,"subjectToHourMap":{"Sub1":4,"Sub2":10,"Sub3":10,"Sub4":5,"Sub5":3}},
+		{"id":6,"standardId":2,"subjectToHourMap":{"Sub1":1,"Sub2":2,"Sub3":10,"Sub4":2,"Sub5":5}},
+		{"id":7,"standardId":2,"subjectToHourMap":{"Sub1":2,"Sub2":10,"Sub3":10,"Sub4":7,"Sub5":10}},
+		{"id":8,"standardId":2,"subjectToHourMap":{"Sub1":3,"Sub2":6,"Sub3":9,"Sub4":7,"Sub5":7}},
+		{"id":9,"standardId":3,"subjectToHourMap":{"Sub1":8,"Sub2":9,"Sub3":10,"Sub4":7,"Sub5":2}},
+		{"id":10,"standardId":3,"subjectToHourMap":{"Sub1":2,"Sub2":1,"Sub3":3,"Sub4":8,"Sub5":6}},
+		{"id":11,"standardId":3,"subjectToHourMap":{"Sub1":3,"Sub2":10,"Sub3":8,"Sub4":9,"Sub5":7}},
+		{"id":12,"standardId":3,"subjectToHourMap":{"Sub1":5,"Sub2":9,"Sub3":7,"Sub4":10,"Sub5":3}}
+	]
+}
 
-Subjects
-========
-1. English (Eng)
-2. Sanskrit (San)
-3. Tamil (Tam)
-4. Physics (Phy)
-5. Chemistry (Che)
-6. Maths (Mat)
-7. Biology (Bio)
-
-Classes
-=======
-1. 11a
-2. 11b
-3. 12a
-4. 12b
-
-=============
-Relationships - TimeTableInput
-=============
-
-Class Groups
-============
-CG11A_Subj -> 11a, 20, [Phy, Che, Mat]
-CG12A_Subj -> 12a, 20, [Phy, Che, Mat]
-
-CG11B_Subj -> 11b, 30, [Phy, Che, Bio]
-CG12B_Subj -> 12b, 20, [Phy, Che, Bio]
-
-CG11A_Lang1 -> 11a, 10, Eng, San
-CG11A_Lang2 -> 11a, 10,Eng, Tam
-
-CG12A_Lang1 -> 12a, 10, Eng, San
-CG12A_Lang2 -> 12a, 10, Eng, Tam
-
-CG11B_Lang1 -> 11b, 20, Eng, San
-CG11B_Lang2 -> 11b, 10, Eng, Tam
-
-CG12B_Lang1 -> 12b, 10, Eng, San
-CG12B_Lang2 -> 12b, 10, Eng, Tam
-
-
-Class Vs Class Group
-====================
-11a -> CG11A_Lang1, CG11A_Lang2, CG11A_Subj
-12a -> CG12A_Lang1, CG12A_Lang2, CG12A_Subj
-11b -> CG11B_Lang1, CG11B_Lang2, CG11B_Subj
-12b -> CG12B_Lang1, CG12B_Lang2, CG12B_Subj
-
-Subject Vs Standard
-===================
-SubVsStd_11a_Eng -> Eng, 6				SubVsStd_12a_Eng -> Eng, 6
-SubVsStd_11a_Tam -> Tam, 5				SubVsStd_12a_Tam -> Tam, 5
-SubVsStd_11a_San -> San, 5				SubVsStd_12a_San -> San, 5
-SubVsStd_11a_Phy -> Phy, 8				SubVsStd_12a_Phy -> Phy, 8
-SubVsStd_11a_Che -> Che, 8				SubVsStd_12a_Che -> Che, 8
-SubVsStd_11a_Mat -> Mat, 8				SubVsStd_12a_Mat -> Mat, 8
-
-SubVsStd_11b_Eng -> Eng, 6				SubVsStd_12b_Eng -> Eng, 6
-SubVsStd_11b_Tam -> Tam, 5				SubVsStd_12b_Tam -> Tam, 5
-SubVsStd_11b_San -> San, 5				SubVsStd_12b_San -> San, 5
-SubVsStd_11b_Phy -> Phy, 8				SubVsStd_12b_Phy -> Phy, 8
-SubVsStd_11b_Che -> Che, 8				SubVsStd_12b_Che -> Che, 8
-SubVsStd_11b_Bio -> Bio, 8				SubVsStd_12b_Bio -> Bio, 8
-
-Total = 40 (8*5)
-
-
-Teacher Vs Subjects
-===================
-T1 -> Eng, Phy
-T2 -> San
-T3 -> Tam, Bio
-T4 -> Eng, Phy
-T5 -> Che, Mat
-T6 -> Che, Tam
-
-
-Teacher Info
-=============
-T1 -> SubVsStd_11a_Eng, SubVsStd_12a_Eng, SubVsStd_11b_Phy, SubVsStd_12b_Phy
-T2 -> SubVsStd_11a_San, SubVsStd_11b_San, SubVsStd_12a_San, SubVsStd_12b_San
-T3 -> SubVsStd_11b_Tam, SubVsStd_12b_Tam, SubVsStd_11b_Bio, SubVsStd_12b_Bio
-T4 -> SubVsStd_11b_Eng, SubVsStd_12b_Eng, SubVsStd_11a_Phy, SubVsStd_12a_Phy
-T5 -> SubVsStd_11a_Che, SubVsStd_12a_Che, SubVsStd_11a_Mat, SubVsStd_12a_Mat
-T6 -> SubVsStd_11a_Tam, SubVsStd_12a_Tam, SubVsStd_11b_Che, SubVsStd_12b_Che
-
-TimeTableInput
-==============
-40, [T1, T2, T3, T4, T5, T6], [CG11A_Subj, CG12A_Subj, CG11B_Subj, CG12B_Subj, CG11A_Lang1, CG11A_Lang2, CG12A_Lang1, CG12A_Lang2, CG11B_Lang1, CG11B_Lang2, CG12B_Lang1, CG12B_Lang2]

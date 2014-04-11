@@ -9,11 +9,11 @@ import java.util.Map;
  * Date: 4/7/2014
  * Time: 3:29 AM
  */
-public class TeacherNew
+public class RawTeacher
 {
 	private int id;
 	private int hours;
-	private Map<String, String[]> standardToSubjectMap = new HashMap<String, String[]>();
+	private Map<String, String[]> standardToSubjectMap = new HashMap<>();
 
 	public int getId()
 	{

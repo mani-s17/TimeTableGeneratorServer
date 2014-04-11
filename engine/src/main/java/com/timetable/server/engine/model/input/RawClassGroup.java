@@ -9,10 +9,11 @@ import java.util.Map;
  * Date: 4/7/2014
  * Time: 3:29 AM
  */
-public class ClassGroupNew
+public class RawClassGroup
 {
 	private int id;
-	private Map<String, Integer> subjectToHourMap = new HashMap<String, Integer>();
+	private int standardId;
+	private Map<String, Integer> subjectToHourMap = new HashMap<>();
 
 	public int getId()
 	{
@@ -22,6 +23,16 @@ public class ClassGroupNew
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+
+	public int getStandardId()
+	{
+		return standardId;
+	}
+
+	public void setStandardId(int standardId)
+	{
+		this.standardId = standardId;
 	}
 
 	public Map<String, Integer> getSubjectToHourMap()

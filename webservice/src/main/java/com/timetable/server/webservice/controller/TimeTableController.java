@@ -1,6 +1,6 @@
 package com.timetable.server.webservice.controller;
 
-import com.timetable.server.engine.model.input.Input;
+import com.timetable.server.engine.model.input.RawInput;
 import com.timetable.server.engine.model.output.TimeTableOutput;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TimeTableController
 {
 	@RequestMapping(method = RequestMethod.POST, headers = "content-type=application/json")
-	public @ResponseBody TimeTableOutput generateTimeTable(@RequestBody Input input)
+	public @ResponseBody TimeTableOutput generateTimeTable(@RequestBody RawInput input)
 	{
 		TimeTableOutput timeTable = new TimeTableOutput();
 		timeTable.setTeacherId("Mani");
