@@ -15,7 +15,7 @@ import com.timetable.server.engine.model.input.TeacherInfo;
 public class DomainStore {
 	private ClassView[] classViews;
 	private TeacherView[] teacherViews;
-	private Map<Integer, Integer> teacherIdVsConsumedPeriods = new HashMap<>();
+	private Map<Integer, Integer> teacherIdVsRemainingPeriods = new HashMap<>();
 	private Map<String, ClassView> classIdVsClassViews = new HashMap<>();
 	private Map<Integer, TeacherView> teacherIdVsTeacherViews = new HashMap<>();
 
@@ -29,7 +29,7 @@ public class DomainStore {
 
 	private void initializeTeacherInfos(TeacherInfo[] teacherInfos) {
 		for (TeacherInfo teacherInfo : teacherInfos) {
-			teacherIdVsConsumedPeriods.put(teacherInfo.getTeacherId(), teacherInfo.getWeeklyTeachingHours());
+			teacherIdVsRemainingPeriods.put(teacherInfo.getTeacherId(), teacherInfo.getWeeklyTeachingHours());
 		}
 	}
 
@@ -54,23 +54,23 @@ public class DomainStore {
 	}
 
 	public boolean canConsumePeriods(int teacherId, int periods) {
-		Integer consumedPeriods = teacherIdVsConsumedPeriods.get(teacherId);
-		consumedPeriods = consumedPeriods - periods;
-		return consumedPeriods >= 0;
+		Integer remainingPeriods = teacherIdVsRemainingPeriods.get(teacherId);
+		remainingPeriods = remainingPeriods - periods;
+		return remainingPeriods >= 0;
 	}
 
 	public void consumePeriods(int teacherId, int periods) {
-		Integer consumedPeriods = teacherIdVsConsumedPeriods.get(teacherId);
-		consumedPeriods = consumedPeriods - periods;
-		teacherIdVsConsumedPeriods.put(teacherId, consumedPeriods);
+		Integer remainingPeriods = teacherIdVsRemainingPeriods.get(teacherId);
+		remainingPeriods = remainingPeriods - periods;
+		teacherIdVsRemainingPeriods.put(teacherId, remainingPeriods);
 	}
 
 	public void undoConsumePeriods(int teacherId, int periods) {
 		consumePeriods(teacherId, -periods);
 	}
 
-	public int getConsumedPeriods(int teacherId) {
-		return teacherIdVsConsumedPeriods.get(teacherId);
+	public int getRemainingPeriods(int teacherId) {
+		return teacherIdVsRemainingPeriods.get(teacherId);
 	}
 
 	public void updateClassView(String classX, SubjectVsTeacher subjectVsTeacher, int day, int period) {

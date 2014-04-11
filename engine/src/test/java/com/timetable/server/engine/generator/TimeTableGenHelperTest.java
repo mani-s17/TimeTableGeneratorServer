@@ -97,21 +97,24 @@ public class TimeTableGenHelperTest {
 
 	@Test
 	public void testNextDayPeriod() {
-		int totalDays = 4;
-		int totalPeriods = 5;
+		int totalDays = 4; // days will vary from 0 to 3.
+		int totalPeriods = 5; // periods will vary from 0 to 4.
 
 		// simple period increment.
 		int[] nextDayPeriod;
 		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(1, 1, totalDays, totalPeriods);
 		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{1, 2});
 
+		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(0, 0, totalDays, totalPeriods);
+		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{0, 1});
+
 		// period overflow
-		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(1, 5, totalDays, totalPeriods);
-		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{2, 1});
+		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(1, 4, totalDays, totalPeriods);
+		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{2, 0});
 
 		//both overflow
-		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(4, 5, totalDays, totalPeriods);
-		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{1, 1});
+		nextDayPeriod = TimeTableGenHelper.getNextDayPeriod(3, 4, totalDays, totalPeriods);
+		assertArrayEquals("next day - period calculation is not proper", nextDayPeriod, new int[]{0, 0});
 	}
 
 
