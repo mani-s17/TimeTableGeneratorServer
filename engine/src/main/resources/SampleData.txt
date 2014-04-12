@@ -31,3 +31,57 @@ Input:
 	]
 }
 
+Output
+======
+{
+	"teachersView":
+	[
+		{
+        	"id":1,
+        	"dayToPeriodToClassGroupSubjectMap":
+        	{
+        		"1":{"1":["7a","Che"],"2":["8a","Phy"]},
+        		"2":{"1":["7a","Che"],"2":["8a","Phy"]},
+        		"3":{"1":["7a","Che"],"2":["8a","Phy"]},
+        		"4":{"1":["7a","Che"],"2":["8a","Phy"]},
+        		"5":{"1":["7a","Che"],"2":["8a","Phy"]}
+        	}
+        },
+        {
+			"id":2,
+			"dayToPeriodToClassGroupSubjectMap":
+			{
+				"1":{"1":["6a","Che"],"2":["8b","Phy"]},
+				"2":{"1":["6a","Che"],"2":["8b","Phy"]},
+				"3":{"1":["6a","Che"],"2":["8b","Phy"]},
+				"4":{"1":["6a","Che"],"2":["8b","Phy"]},
+				"5":{"1":["6a","Che"],"2":["8b","Phy"]}
+			}
+		}
+	],
+	"classGroupsView":
+	[
+		{
+			"id":1,
+			"dayToSequencedPeriodsMap":
+			{
+				"1":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"],
+				"2":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"],
+				"3":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"],
+				"4":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"],
+				"5":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"]
+			}
+		},
+		{
+			"id":2,
+			"dayToSequencedPeriodsMap":
+			{
+				"1":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"],
+				"2":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"],
+				"3":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"],
+				"4":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"],
+				"5":["Sub1","Sub2","Sub3","Sub4","Sub5","Sub6","Sub7","Sub8"]
+			}
+		}
+	]
+}
