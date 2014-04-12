@@ -4,10 +4,8 @@ import com.timetable.server.engine.model.common.ClassView;
 import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.ClassGroup;
-import com.timetable.server.engine.model.input.SubjectClassGroup;
 import com.timetable.server.engine.model.input.TeacherInfo;
 import com.timetable.server.engine.model.input.TimeTableInput;
-import java.util.HashMap;
 import java.util.Map;
 
 public class TimeTableGeneratorFactory {

@@ -10,7 +10,7 @@ public class TeacherInfo {
 
 	private int weeklyTeachingHours;
 
-	private SubjectClassGroup[] subjectClassGroups;
+	private SubjectStandard[] subjectStandards;
 
 	public int getTeacherId() {
 		return teacherId;
@@ -28,11 +28,11 @@ public class TeacherInfo {
 		this.weeklyTeachingHours = weeklyTeachingHours;
 	}
 
-	public SubjectClassGroup[] getSubjectClassGroups() {
-		return subjectClassGroups;
+	public SubjectStandard[] getSubjectStandards() {
+		return subjectStandards;
 	}
 
-	public void setSubjectClassGroups(SubjectClassGroup[] subjectClassGroups) {
-		this.subjectClassGroups = subjectClassGroups;
+	public void setSubjectStandards(SubjectStandard[] subjectStandards) {
+		this.subjectStandards = subjectStandards;
 	}
 }

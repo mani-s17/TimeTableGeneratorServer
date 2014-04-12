@@ -1,5 +1,6 @@
 package com.timetable.server.engine.generator;
 
+import com.timetable.server.engine.model.input.SubjectStandard;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +8,6 @@ import com.timetable.server.engine.model.common.ClassView;
 import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.ClassGroup;
-import com.timetable.server.engine.model.input.SubjectClassGroup;
 import com.timetable.server.engine.model.input.TeacherInfo;
 
 public class TimeTableGenHelper {
@@ -44,19 +44,19 @@ public class TimeTableGenHelper {
 	public static Map<String, SubjectVsTeacher[]> getMapClassIdVsSubjectTeachers(TeacherInfo[] teacherInfos,
 																		   ClassGroup[] classGroups) {
 		// go over all the TeacherInfos to create the necessary information for each class..
-		Map<String, Map<String, Integer>> classIdVsMapSubjVsTchrId = new HashMap<>();
+		Map<Integer, Map<String, Integer>> standardVsMapSubjVsTchrId = new HashMap<>();
 		for (TeacherInfo teacherInfo : teacherInfos) {
 			int teacherId = teacherInfo.getTeacherId();
-			SubjectClassGroup[] subjectClassGroups = teacherInfo.getSubjectClassGroups();
-			for (SubjectClassGroup subjectClassGroup : subjectClassGroups) {
-				Map<String, Integer> subjectIdVsTeacherId = classIdVsMapSubjVsTchrId.get(subjectClassGroup.getClassGroup());
+			SubjectStandard[] subjectStandards = teacherInfo.getSubjectStandards();
+			for (SubjectStandard subjectStandard : subjectStandards) {
+				Map<String, Integer> subjectIdVsTeacherId = standardVsMapSubjVsTchrId.get(subjectStandard.getStandard());
 				if (subjectIdVsTeacherId == null) {
 					subjectIdVsTeacherId = new HashMap<>();
-					classIdVsMapSubjVsTchrId.put(subjectClassGroup.getClassGroup(), subjectIdVsTeacherId);
+					standardVsMapSubjVsTchrId.put(subjectStandard.getStandard(), subjectIdVsTeacherId);
 				}
 				// FIXME this place will possibly override previously stored teacher for the class.
 				// and this is a problem.
-				subjectIdVsTeacherId.put(subjectClassGroup.getSubject(), teacherId);
+				subjectIdVsTeacherId.put(subjectStandard.getSubject(), teacherId);
 			}
 		}
 
@@ -64,13 +64,15 @@ public class TimeTableGenHelper {
 
 		for (ClassGroup classGroup : classGroups) {
 			String classId = classGroup.getClassGroupId();
+			int standardId = classGroup.getStandardId();
 			SubjectVsTeacher[] subjectVsTeachers = new SubjectVsTeacher[classGroup.getSubjects().length];
 
-			Map<String, Integer> subjVsTeacherId = classIdVsMapSubjVsTchrId.get(classId);
+			Map<String, Integer> subjVsTeacherId = standardVsMapSubjVsTchrId.get(standardId);
 
 			int i = 0;
 			for (String subject : classGroup.getSubjects()) {
-				subjectVsTeachers[i++] = new SubjectVsTeacher(subject, subjVsTeacherId.get(subject));
+				if (subjVsTeacherId.containsKey(subject))
+					subjectVsTeachers[i++] = new SubjectVsTeacher(subject, subjVsTeacherId.get(subject));
 			}
 
 			classIdVsSubjectTeachers.put(classId, subjectVsTeachers);
