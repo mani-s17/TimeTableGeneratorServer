@@ -3,6 +3,8 @@ package com.timetable.server.engine.generator;
 import com.timetable.server.engine.model.input.ClassGroup;
 import com.timetable.server.engine.model.input.SubjectStandard;
 import com.timetable.server.engine.model.input.TeacherInfo;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TestHelper {
 	public static ClassGroup getClassGroup1() {
@@ -11,6 +13,10 @@ public class TestHelper {
 		classGroup.setClassGroupId("1A");
 		classGroup.setSubjects(new String[]{"MATHS", "PHY"});
 		classGroup.setTotalStudents(40);
+		Map<String, Integer> subjectVsHourMap = new HashMap<>();
+		subjectVsHourMap.put("MATHS", 2);
+		subjectVsHourMap.put("PHY", 2);
+		classGroup.setSubjectVsHourMap(subjectVsHourMap);
 		return classGroup;
 	}
 
@@ -20,6 +26,10 @@ public class TestHelper {
 		classGroup.setClassGroupId("2B");
 		classGroup.setSubjects(new String[]{"HINDI", "PHY"});
 		classGroup.setTotalStudents(35);
+		Map<String, Integer> subjectVsHourMap = new HashMap<>();
+		subjectVsHourMap.put("HINDI", 2);
+		subjectVsHourMap.put("PHY", 2);
+		classGroup.setSubjectVsHourMap(subjectVsHourMap);
 		return classGroup;
 	}
 

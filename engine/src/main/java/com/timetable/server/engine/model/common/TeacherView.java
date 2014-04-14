@@ -53,6 +53,8 @@ public class TeacherView {
 		for (int i = 0; i < workDays; i++) {
 			stringBuilder.append("DAY " + (i + 1) + ": ");
 			for (int j = 0; j < totalPeriods; j++) {
+				if (dayPeriodInfo[i][j] == null)
+					continue;
 				stringBuilder.append(dayPeriodInfo[i][j].getClassGroupId() + "/" + dayPeriodInfo[i][j].getSubjectId());
 				stringBuilder.append("\t\t");
 			}

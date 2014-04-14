@@ -16,7 +16,7 @@ public class TimeTableGenHelper {
 		ClassView[] classViews = new ClassView[classGroups.length];
 		int i = 0;
 		for (ClassGroup classGroup : classGroups) {
-			classViews[i++] = new ClassView(classGroup.getClassGroupId(), totalDays, totalPeriods);
+			classViews[i++] = new ClassView(classGroup, totalDays, totalPeriods);
 		}
 
 		return classViews;

@@ -1,6 +1,8 @@
 package com.timetable.server.engine.generator;
 
-import com.timetable.server.engine.model.common.ClassView;
+import com.sun.org.apache.regexp.internal.recompile;
+import com.timetable.server.engine.generator.constraints.CheckConstraints;
+import com.timetable.server.engine.generator.constraints.FutureConstraintsChecker;
 import com.timetable.server.engine.model.common.SubjectVsTeacher;
 import com.timetable.server.engine.model.common.TeacherView;
 import com.timetable.server.engine.model.input.TimeTableInput;
@@ -24,11 +26,15 @@ public class BruteForceGenerator implements TimeTableGenerator {
 	private DomainStore domainStore;
 
 	private Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers;
+	private CheckConstraints checkConstraints;
+
+	private FutureConstraintsChecker futureConstraintsChecker;
 
 	private boolean stop = false;
 
 	public BruteForceGenerator(int totalDays, int totalClasses, int totalPeriods, int totalTeachers, String[] classIds,
-							   DomainStore domainStore, Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers) {
+							   DomainStore domainStore, Map<String, SubjectVsTeacher[]> classIdVsSubjectTeachers,
+							   CheckConstraints checkConstraints) {
 		this.totalDays = totalDays;
 		this.totalClasses = totalClasses;
 		this.totalPeriods = totalPeriods;
@@ -36,6 +42,8 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		this.classIds = classIds;
 		this.domainStore = domainStore;
 		this.classIdVsSubjectTeachers = classIdVsSubjectTeachers;
+		this.checkConstraints = checkConstraints;
+		this.futureConstraintsChecker = new FutureConstraintsChecker(domainStore);
 	}
 
 	// TODO take care of entities starting from 1 and not 0.
@@ -46,6 +54,10 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		int startPeriod = 0;
 		stop = false;
 		assignRecursive(startClassIdx, startDay, startPeriod);
+
+		if (!stop)
+			System.out.println("NO SOLUTION FOUND :( :( ");
+
 		return getSampleOutput();
 	}
 
@@ -66,7 +78,7 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		SubjectVsTeacher[] subjectVsTeachers = classIdVsSubjectTeachers.get(classId);
 
 		for (SubjectVsTeacher subjectVsTeacher : subjectVsTeachers) {
-			if (!canUse(subjectVsTeacher)) {
+			if (!canUse(classId, subjectVsTeacher, day, period)) {
 				continue;
 			}
 			// try using this teacher
@@ -93,8 +105,8 @@ public class BruteForceGenerator implements TimeTableGenerator {
 		}
 	}
 
-	private boolean canUse(SubjectVsTeacher subjectVsTeacher) {
-		return domainStore.canConsumePeriods(subjectVsTeacher.getTeacherId(), 1);
+	private boolean canUse(String classGroupId, SubjectVsTeacher subjectVsTeacher, int day, int period) {
+		return futureConstraintsChecker.canUse(classGroupId, subjectVsTeacher, day, period);
 	}
 
 	private void useAndUpdateState(SubjectVsTeacher subjectVsTeacher, String classX, int day, int period) {
@@ -137,12 +149,6 @@ public class BruteForceGenerator implements TimeTableGenerator {
 	}
 
 	private boolean checkAllConstraintsAreValid() {
-		for (TeacherView teacherView: domainStore.getTeacherViews()) {
-			int remainingPeriods = domainStore.getRemainingPeriods(teacherView.getTeacherId());
-			if (remainingPeriods > 0)
-				return false;
-		}
-
-		return true;
+		return checkConstraints.checkConstraintsAreValid();
 	}
 }
