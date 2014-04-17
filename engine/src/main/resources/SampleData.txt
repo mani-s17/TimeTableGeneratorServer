@@ -85,3 +85,31 @@ Output
 		}
 	]
 }
+
+
+
+================================================
+Valid Sample Input
+------------------
+{
+	"workingDays":5,
+	"periodPerDay":8,
+	"teachers":
+	[
+		{"id":1,"hours":16,"standardToSubjectMap":{"11":["Eng"],"12":["Eng"]}},
+		{"id":2,"hours":16,"standardToSubjectMap":{"11":["Hin"],"12":["Hin"]}},
+		{"id":3,"hours":28,"standardToSubjectMap":{"11":["Mat"],"12":["Mat"]}},
+		{"id":4,"hours":28,"standardToSubjectMap":{"11":["Phy"],"12":["Phy"]}},
+		{"id":5,"hours":28,"standardToSubjectMap":{"11":["Che"],"12":["Che"]}},
+		{"id":6,"hours":14,"standardToSubjectMap":{"11":["Comp"],"12":["Comp"]}},
+		{"id":7,"hours":14,"standardToSubjectMap":{"11":["Bio"],"12":["Bio"]}},
+		{"id":8,"hours":28,"standardToSubjectMap":{"11":["Free"],"12":["Free"]}}
+	],
+	"classGroups":
+	[
+		{"id":1,"standardId":11,"subjectToHourMap":{"Eng":4,"Hin":4,"Mat":7,"Phy":7,"Che":7,"Comp":7,"Free":4}},
+		{"id":2,"standardId":11,"subjectToHourMap":{"Eng":4,"Hin":4,"Mat":7,"Phy":7,"Che":7,"Bio":7,"Free":4}},
+		{"id":3,"standardId":12,"subjectToHourMap":{"Eng":4,"Hin":4,"Mat":7,"Phy":7,"Che":7,"Comp":7,"Free":4}},
+		{"id":4,"standardId":12,"subjectToHourMap":{"Eng":4,"Hin":4,"Mat":7,"Phy":7,"Che":7,"Bio":7,"Free":4}}
+	]
+}

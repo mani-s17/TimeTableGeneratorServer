@@ -110,7 +110,52 @@ public class TimeTableController
 
 	public static void main(String[] args)
 	{
-		String input = "{\"workingDays\":5,\"periodPerDay\":8,\"teachers\":[{\"id\":1,\"hours\":18,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}},{\"id\":2,\"hours\":18,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}},{\"id\":3,\"hours\":15,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}},{\"id\":4,\"hours\":10,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}},{\"id\":5,\"hours\":11,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}}],\"classGroups\":[{\"id\":1,\"standardId\":1,\"subjectToHourMap\":{\"Sub1\":2,\"Sub2\":7,\"Sub3\":2,\"Sub4\":3,\"Sub5\":4}},{\"id\":2,\"standardId\":1,\"subjectToHourMap\":{\"Sub1\":1,\"Sub2\":5,\"Sub3\":7,\"Sub4\":1,\"Sub5\":9}},{\"id\":3,\"standardId\":1,\"subjectToHourMap\":{\"Sub1\":5,\"Sub2\":8,\"Sub3\":5,\"Sub4\":4,\"Sub5\":4}},{\"id\":4,\"standardId\":1,\"subjectToHourMap\":{\"Sub1\":2,\"Sub2\":3,\"Sub3\":3,\"Sub4\":2,\"Sub5\":1}},{\"id\":5,\"standardId\":2,\"subjectToHourMap\":{\"Sub1\":4,\"Sub2\":10,\"Sub3\":10,\"Sub4\":5,\"Sub5\":3}},{\"id\":6,\"standardId\":2,\"subjectToHourMap\":{\"Sub1\":1,\"Sub2\":2,\"Sub3\":10,\"Sub4\":2,\"Sub5\":5}},{\"id\":7,\"standardId\":2,\"subjectToHourMap\":{\"Sub1\":2,\"Sub2\":10,\"Sub3\":10,\"Sub4\":7,\"Sub5\":10}},{\"id\":8,\"standardId\":2,\"subjectToHourMap\":{\"Sub1\":3,\"Sub2\":6,\"Sub3\":9,\"Sub4\":7,\"Sub5\":7}},{\"id\":9,\"standardId\":3,\"subjectToHourMap\":{\"Sub1\":8,\"Sub2\":9,\"Sub3\":10,\"Sub4\":7,\"Sub5\":2}},{\"id\":10,\"standardId\":3,\"subjectToHourMap\":{\"Sub1\":2,\"Sub2\":1,\"Sub3\":3,\"Sub4\":8,\"Sub5\":6}},{\"id\":11,\"standardId\":3,\"subjectToHourMap\":{\"Sub1\":3,\"Sub2\":10,\"Sub3\":8,\"Sub4\":9,\"Sub5\":7}},{\"id\":12,\"standardId\":3,\"subjectToHourMap\":{\"Sub1\":5,\"Sub2\":9,\"Sub3\":7,\"Sub4\":10,\"Sub5\":3}}]}";
+		//String input = "{\"workingDays\":5,\"periodPerDay\":8,\"teachers\":[{\"id\":1,\"hours\":18,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}},{\"id\":2,\"hours\":18,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}},{\"id\":3,\"hours\":15,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}},{\"id\":4,\"hours\":10,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}},{\"id\":5,\"hours\":11,\"standardToSubjectMap\":{\"1\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"2\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"],\"3\":[\"Sub1\",\"Sub2\",\"Sub3\",\"Sub4\",\"Sub5\"]}}],\"classGroups\":[{\"id\":1,\"standardId\":1,\"subjectToHourMap\":{\"Sub1\":2,\"Sub2\":7,\"Sub3\":2,\"Sub4\":3,\"Sub5\":4}},{\"id\":2,\"standardId\":1,\"subjectToHourMap\":{\"Sub1\":1,\"Sub2\":5,\"Sub3\":7,\"Sub4\":1,\"Sub5\":9}},{\"id\":3,\"standardId\":1,\"subjectToHourMap\":{\"Sub1\":5,\"Sub2\":8,\"Sub3\":5,\"Sub4\":4,\"Sub5\":4}},{\"id\":4,\"standardId\":1,\"subjectToHourMap\":{\"Sub1\":2,\"Sub2\":3,\"Sub3\":3,\"Sub4\":2,\"Sub5\":1}},{\"id\":5,\"standardId\":2,\"subjectToHourMap\":{\"Sub1\":4,\"Sub2\":10,\"Sub3\":10,\"Sub4\":5,\"Sub5\":3}},{\"id\":6,\"standardId\":2,\"subjectToHourMap\":{\"Sub1\":1,\"Sub2\":2,\"Sub3\":10,\"Sub4\":2,\"Sub5\":5}},{\"id\":7,\"standardId\":2,\"subjectToHourMap\":{\"Sub1\":2,\"Sub2\":10,\"Sub3\":10,\"Sub4\":7,\"Sub5\":10}},{\"id\":8,\"standardId\":2,\"subjectToHourMap\":{\"Sub1\":3,\"Sub2\":6,\"Sub3\":9,\"Sub4\":7,\"Sub5\":7}},{\"id\":9,\"standardId\":3,\"subjectToHourMap\":{\"Sub1\":8,\"Sub2\":9,\"Sub3\":10,\"Sub4\":7,\"Sub5\":2}},{\"id\":10,\"standardId\":3,\"subjectToHourMap\":{\"Sub1\":2,\"Sub2\":1,\"Sub3\":3,\"Sub4\":8,\"Sub5\":6}},{\"id\":11,\"standardId\":3,\"subjectToHourMap\":{\"Sub1\":3,\"Sub2\":10,\"Sub3\":8,\"Sub4\":9,\"Sub5\":7}},{\"id\":12,\"standardId\":3,\"subjectToHourMap\":{\"Sub1\":5,\"Sub2\":9,\"Sub3\":7,\"Sub4\":10,\"Sub5\":3}}]}";
+		/*String input = "{" +
+				"\"workingDays\":5," +
+				"\"periodPerDay\":8," +
+				"\"teachers\":" +
+				"[" +
+				"{\"id\":1,\"hours\":24,\"standardToSubjectMap\":{\"11\":[\"Eng\"],\"12\":[\"Eng\"]}}," +
+				"{\"id\":2,\"hours\":24,\"standardToSubjectMap\":{\"11\":[\"Hin\"],\"12\":[\"Hin\"]}}," +
+				"{\"id\":3,\"hours\":24,\"standardToSubjectMap\":{\"11\":[\"Mat\"],\"12\":[\"Mat\"]}}," +
+				"{\"id\":4,\"hours\":24,\"standardToSubjectMap\":{\"11\":[\"Phy\"],\"12\":[\"Phy\"]}}," +
+				"{\"id\":5,\"hours\":24,\"standardToSubjectMap\":{\"11\":[\"Che\"],\"12\":[\"Che\"]}}," +
+				"{\"id\":6,\"hours\":24,\"standardToSubjectMap\":{\"11\":[\"Comp\"],\"12\":[\"Comp\"]}}," +
+				"{\"id\":7,\"hours\":24,\"standardToSubjectMap\":{\"11\":[\"Bio\"],\"12\":[\"Bio\"]}}," +
+				"{\"id\":8,\"hours\":24,\"standardToSubjectMap\":{\"11\":[\"Free\"],\"12\":[\"Free\"]}}" +
+				"]," +
+				"\"classGroups\":" +
+				"[" +
+				"{\"id\":1,\"standardId\":11,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Comp\":7,\"Free\":4}}," +
+				"{\"id\":2,\"standardId\":11,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Bio\":7,\"Free\":4}}," +
+				"{\"id\":3,\"standardId\":12,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Comp\":7,\"Free\":4}}," +
+				"{\"id\":4,\"standardId\":12,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Bio\":7,\"Free\":4}}" +
+				"]" +
+				"}";*/
+		
+		String input = "{" +
+				"\"workingDays\":5," +
+				"\"periodPerDay\":8," +
+				"\"teachers\":" +
+				"[" +
+				"{\"id\":1,\"hours\":16,\"standardToSubjectMap\":{\"11\":[\"Eng\"],\"12\":[\"Eng\"]}}," +
+				"{\"id\":2,\"hours\":16,\"standardToSubjectMap\":{\"11\":[\"Hin\"],\"12\":[\"Hin\"]}}," +
+				"{\"id\":3,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Mat\"],\"12\":[\"Mat\"]}}," +
+				"{\"id\":4,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Phy\"],\"12\":[\"Phy\"]}}," +
+				"{\"id\":5,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Che\"],\"12\":[\"Che\"]}}," +
+				"{\"id\":6,\"hours\":14,\"standardToSubjectMap\":{\"11\":[\"Comp\"],\"12\":[\"Comp\"]}}," +
+				"{\"id\":7,\"hours\":14,\"standardToSubjectMap\":{\"11\":[\"Bio\"],\"12\":[\"Bio\"]}}," +
+				"{\"id\":8,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Free\"],\"12\":[\"Free\"]}}" +
+				"]," +
+				"\"classGroups\":" +
+				"[" +
+				"{\"id\":1,\"standardId\":11,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Comp\":7,\"Free\":4}}," +
+				"{\"id\":2,\"standardId\":11,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Bio\":7,\"Free\":4}}," +
+				"{\"id\":3,\"standardId\":12,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Comp\":7,\"Free\":4}}," +
+				"{\"id\":4,\"standardId\":12,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Bio\":7,\"Free\":4}}" +
+				"]" +
+				"}";
 		ObjectMapper objectMapper = new ObjectMapper();
 		try
 		{
