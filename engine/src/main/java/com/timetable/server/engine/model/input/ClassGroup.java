@@ -1,38 +1,47 @@
 package com.timetable.server.engine.model.input;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * A class group is a combination of students (of a standard) who study a set of common subjects.
- *
+ * Created with IntelliJ IDEA.
+ * User: Subramaniam S
+ * Date: 4/7/2014
+ * Time: 3:29 AM
  */
-public class ClassGroup {
+public class ClassGroup
+{
+	private int id;
+	private int standardId;
+	private Map<String, Integer> subjectToHourMap = new HashMap<>();
 
-	private int classStandard;
-
-	private int totalStudents;
-
-	private String[] subjects;
-
-	public int getClassStandard() {
-		return classStandard;
+	public int getId()
+	{
+		return id;
 	}
 
-	public void setClassStandard(int classStandard) {
-		this.classStandard = classStandard;
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 
-	public int getTotalStudents() {
-		return totalStudents;
+	public int getStandardId()
+	{
+		return standardId;
 	}
 
-	public void setTotalStudents(int totalStudents) {
-		this.totalStudents = totalStudents;
+	public void setStandardId(int standardId)
+	{
+		this.standardId = standardId;
 	}
 
-	public String[] getSubjects() {
-		return subjects;
+	public Map<String, Integer> getSubjectToHourMap()
+	{
+		return subjectToHourMap;
 	}
 
-	public void setSubjects(String[] subjects) {
-		this.subjects = subjects;
+	public void setSubjectToHourMap(String subject, Integer hour)
+	{
+		this.subjectToHourMap.put(subject, hour);
 	}
 }
