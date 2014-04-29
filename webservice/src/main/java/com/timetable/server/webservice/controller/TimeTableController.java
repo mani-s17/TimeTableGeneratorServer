@@ -1,5 +1,7 @@
 package com.timetable.server.webservice.controller;
 
+import com.timetable.server.engine.model.common.ClassView;
+import com.timetable.server.engine.model.common.TeacherView;
 import java.io.IOException;
 
 import com.timetable.server.engine.generator.TimeTableGenerator;
@@ -104,8 +106,29 @@ public class TimeTableController
 	{
 		TimeTableInput timeTableInput = InputConverter.convertRawInputToTimeTableInput(input);
 		TimeTableGenerator generator = new TimeTableGeneratorFactory().getBruteForceGenerator(timeTableInput);
-		SampleOutput output = generator.generateTimeTable(timeTableInput);
-		return OutputConverter.convertSampleOutputToRawOutput(output, input.getWorkingDays(), input.getPeriodPerDay());
+		SampleOutput sampleOutput = generator.generateTimeTable(timeTableInput);
+
+		if (sampleOutput != null) {
+			System.out.println("------------- SAMPLE OUTPUT TEACHER VIEW -------------------\n");
+			TeacherView[] teacherViews = sampleOutput.getTeacherViews();
+			for (int i = 0; i < teacherViews.length; i++) {
+				TeacherView teacherView = teacherViews[i];
+				System.out.println("----------- TEACHER VIEW " + teacherView.getTeacherId() + " ---------------");
+
+				System.out.println(teacherView);
+			}
+
+			System.out.println("\n\n-------------- SAMPLE OUTPUT CLASSVIEW -----------------\n");
+			ClassView[] classViews = sampleOutput.getClassViews();
+
+			for (int i = 0; i < classViews.length; i++) {
+				ClassView classView = classViews[i];
+				System.out.println("------------ CLASS VIEW " + classView.getClassGroupId() + " ----------------");
+
+				System.out.println(classView);
+			}
+		}
+		return OutputConverter.convertSampleOutputToRawOutput(sampleOutput, input.getWorkingDays(), input.getPeriodPerDay());
 	}
 
 	public static void main(String[] args)
@@ -135,25 +158,22 @@ public class TimeTableController
 				"}";*/
 		
 		String input = "{" +
-				"\"workingDays\":5," +
-				"\"periodPerDay\":8," +
+				"\"workingDays\":4," +
+				"\"periodPerDay\":5," +
 				"\"teachers\":" +
 				"[" +
-				"{\"id\":1,\"hours\":16,\"standardToSubjectMap\":{\"11\":[\"Eng\"],\"12\":[\"Eng\"]}}," +
-				"{\"id\":2,\"hours\":16,\"standardToSubjectMap\":{\"11\":[\"Hin\"],\"12\":[\"Hin\"]}}," +
+				"{\"id\":1,\"hours\":26,\"standardToSubjectMap\":{\"11\":[\"Eng\"],\"12\":[\"Eng\"]}}," +
+				"{\"id\":2,\"hours\":26,\"standardToSubjectMap\":{\"11\":[\"Hin\"],\"12\":[\"Hin\"]}}," +
 				"{\"id\":3,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Mat\"],\"12\":[\"Mat\"]}}," +
 				"{\"id\":4,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Phy\"],\"12\":[\"Phy\"]}}," +
-				"{\"id\":5,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Che\"],\"12\":[\"Che\"]}}," +
-				"{\"id\":6,\"hours\":14,\"standardToSubjectMap\":{\"11\":[\"Comp\"],\"12\":[\"Comp\"]}}," +
-				"{\"id\":7,\"hours\":14,\"standardToSubjectMap\":{\"11\":[\"Bio\"],\"12\":[\"Bio\"]}}," +
-				"{\"id\":8,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Free\"],\"12\":[\"Free\"]}}" +
+				"{\"id\":5,\"hours\":28,\"standardToSubjectMap\":{\"11\":[\"Che\"],\"12\":[\"Che\"]}}" +
 				"]," +
 				"\"classGroups\":" +
 				"[" +
-				"{\"id\":1,\"standardId\":11,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Comp\":7,\"Free\":4}}," +
-				"{\"id\":2,\"standardId\":11,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Bio\":7,\"Free\":4}}," +
-				"{\"id\":3,\"standardId\":12,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Comp\":7,\"Free\":4}}," +
-				"{\"id\":4,\"standardId\":12,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":7,\"Phy\":7,\"Che\":7,\"Bio\":7,\"Free\":4}}" +
+				"{\"id\":1,\"standardId\":11,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":4,\"Phy\":4,\"Che\":4}}," +
+				"{\"id\":2,\"standardId\":11,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":4,\"Phy\":4,\"Che\":4}}," +
+				"{\"id\":3,\"standardId\":12,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":4,\"Phy\":4,\"Che\":4}}," +
+				"{\"id\":4,\"standardId\":12,\"subjectToHourMap\":{\"Eng\":4,\"Hin\":4,\"Mat\":4,\"Phy\":4,\"Che\":4}}" +
 				"]" +
 				"}";
 		ObjectMapper objectMapper = new ObjectMapper();
